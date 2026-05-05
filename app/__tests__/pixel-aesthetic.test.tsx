@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import seedRaw from "@/content/stories.seed.json";
 import { getWeeklyMarketPicks } from "@/lib/market-picks";
 import { validateSeed } from "@/lib/seed-validate";
@@ -51,15 +51,21 @@ describe("MVP homepage pixel/editorial contract", () => {
     }
   });
 
-  test("recipe sheet section labels use dotted accents and body remains readable", () => {
+  test("inline recipe section labels use dotted accents and body remains readable", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    fireEvent.click(container.querySelector("[data-market-pick-card]")!);
+    const recipe = container.querySelector("[data-catalst-recipe]")!;
 
-    const sheet = container.querySelector("[data-recipe-sheet]")!;
-    expect(sheet.querySelectorAll("[data-dotted-text]").length).toBeGreaterThan(
+    expect(recipe.querySelectorAll("[data-dotted-text]").length).toBeGreaterThan(
       4,
     );
-    expect(sheet.querySelector("table")).toBeNull();
-    expect(sheet.textContent).not.toContain("🔥");
+    expect(recipe.querySelector("table")).toBeNull();
+  });
+
+  test("AI build prompt includes a compact copy affordance", () => {
+    const { container } = render(<HomeClient {...ALL_PROPS} />);
+    const recipe = container.querySelector("[data-catalst-recipe]")!;
+
+    expect(recipe.textContent).toContain("Copy prompt");
+    expect(recipe.querySelector("svg")).not.toBeNull();
   });
 });

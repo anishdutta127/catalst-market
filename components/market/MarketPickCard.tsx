@@ -7,25 +7,39 @@ import type { MarketPick } from "@/lib/market-picks";
 
 export interface MarketPickCardProps {
   pick: MarketPick;
-  onOpen: (pick: MarketPick) => void;
+  selected?: boolean;
+  onSelect: (pick: MarketPick) => void;
+  onOpenRecipe: (pick: MarketPick) => void;
 }
 
-export function MarketPickCard({ pick, onOpen }: MarketPickCardProps) {
+export function MarketPickCard({
+  pick,
+  selected = false,
+  onSelect,
+  onOpenRecipe,
+}: MarketPickCardProps) {
   return (
     <article
       data-market-pick-card=""
       data-market-pick-category={pick.category}
+      data-market-pick-selected={selected ? "true" : "false"}
       role="button"
       tabIndex={0}
-      onClick={() => onOpen(pick)}
+      onClick={() => onSelect(pick)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          onOpen(pick);
+          onSelect(pick);
         }
       }}
-      aria-label={`Open recipe for ${pick.companyName}`}
-      className="group bg-card border border-rule rounded-lg overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300"
+      aria-label={`Select recipe for ${pick.companyName}`}
+      aria-pressed={selected}
+      className={[
+        "group bg-card border rounded-lg overflow-hidden transition-[box-shadow,border-color] duration-300",
+        selected
+          ? "border-ink shadow-card-hover"
+          : "border-rule shadow-card hover:shadow-card-hover",
+      ].join(" ")}
     >
       <div className="px-4 pt-4 pb-3 md:px-5 md:pt-5 border-b border-rule">
         <div className="flex items-start justify-between gap-3">
@@ -74,10 +88,10 @@ export function MarketPickCard({ pick, onOpen }: MarketPickCardProps) {
           width="full"
           onClick={(event) => {
             event.stopPropagation();
-            onOpen(pick);
+            onOpenRecipe(pick);
           }}
         >
-          Open recipe
+          Expand recipe
         </Button>
       </div>
     </article>

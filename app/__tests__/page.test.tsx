@@ -22,7 +22,7 @@ afterEach(() => {
   document.body.style.overflow = "";
 });
 
-describe("HomeClient — MVP homepage loop", () => {
+describe("HomeClient - MVP homepage loop", () => {
   test("renders the simplified page order", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
 
@@ -47,27 +47,36 @@ describe("HomeClient — MVP homepage loop", () => {
     const cards = container.querySelectorAll("[data-market-pick-card]");
 
     expect(cards.length).toBe(3);
-    expect(Array.from(cards).map((card) => card.getAttribute("data-market-pick-category"))).toEqual([
-      "established",
-      "startup",
-      "frontier",
-    ]);
+    expect(
+      Array.from(cards).map((card) =>
+        card.getAttribute("data-market-pick-category"),
+      ),
+    ).toEqual(["established", "startup", "frontier"]);
   });
 
-  test("opening a pick shows the RecipeSheet", () => {
+  test("renders the full recipe inline as the core value", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const firstCard = container.querySelector("[data-market-pick-card]")!;
+    const inline = container.querySelector("[data-weekly-recipe-inline]");
 
-    fireEvent.click(firstCard);
-
-    const sheet = container.querySelector("[data-recipe-sheet]");
-    expect(sheet).not.toBeNull();
-    const labels = Array.from(sheet!.querySelectorAll("[data-dotted-text]"))
+    expect(inline).not.toBeNull();
+    const labels = Array.from(inline!.querySelectorAll("[data-dotted-text]"))
       .map((node) => node.getAttribute("data-dotted-text-content"));
     expect(labels).toContain("SOURCE PATTERN");
+    expect(labels).toContain("WHY THIS BUSINESS WORKS");
     expect(labels).toContain("RECOMMENDED PODS");
-    expect(labels).toContain("AI BUILD INSTRUCTIONS");
+    expect(labels).toContain("LANDING PAGE FORMULA");
+    expect(labels).toContain("AI BUILD PROMPT");
     expect(labels).toContain("48-HOUR VALIDATION PLAN");
+    expect(labels).toContain("WHAT NOT TO BUILD YET");
+  });
+
+  test("card CTA opens the expanded RecipeSheet", () => {
+    const { container } = render(<HomeClient {...ALL_PROPS} />);
+    const cta = container.querySelector("[data-market-pick-card] button")!;
+
+    fireEvent.click(cta);
+
+    expect(container.querySelector("[data-recipe-sheet]")).not.toBeNull();
   });
 
   test("secondary signals are below the main weekly loop", () => {

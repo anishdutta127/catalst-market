@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { DottedText } from "@/components/brand/DottedText";
 import { MarketPickCard } from "@/components/market/MarketPickCard";
-import { RecipeSheet } from "@/components/market/RecipeSheet";
+import {
+  CatalstRecipePanel,
+  RecipeSheet,
+} from "@/components/market/RecipeSheet";
 import type { MarketPick } from "@/lib/market-picks";
 
 export interface WeeklyMarketPicksProps {
@@ -11,7 +14,10 @@ export interface WeeklyMarketPicksProps {
 }
 
 export function WeeklyMarketPicks({ picks }: WeeklyMarketPicksProps) {
-  const [activePick, setActivePick] = useState<MarketPick | null>(null);
+  const [selectedPick, setSelectedPick] = useState<MarketPick | null>(
+    picks[0] ?? null,
+  );
+  const [sheetPick, setSheetPick] = useState<MarketPick | null>(null);
 
   return (
     <section
@@ -29,7 +35,8 @@ export function WeeklyMarketPicks({ picks }: WeeklyMarketPicksProps) {
           />
         </h2>
         <p className="font-serif text-ink leading-tight max-w-2xl text-[1.5rem] md:text-[2rem]">
-          Three patterns worth copying before they become obvious.
+          Three patterns worth copying before they become obvious. The recipe
+          is the product.
         </p>
       </div>
 
@@ -38,16 +45,24 @@ export function WeeklyMarketPicks({ picks }: WeeklyMarketPicksProps) {
           <MarketPickCard
             key={pick.category}
             pick={pick}
-            onOpen={setActivePick}
+            selected={selectedPick?.category === pick.category}
+            onSelect={setSelectedPick}
+            onOpenRecipe={setSheetPick}
           />
         ))}
       </div>
 
+      {selectedPick && (
+        <div data-weekly-recipe-inline="" className="mt-5 md:mt-6">
+          <CatalstRecipePanel pick={selectedPick} />
+        </div>
+      )}
+
       <RecipeSheet
-        pick={activePick}
-        open={activePick !== null}
+        pick={sheetPick}
+        open={sheetPick !== null}
         onOpenChange={(open) => {
-          if (!open) setActivePick(null);
+          if (!open) setSheetPick(null);
         }}
       />
     </section>
