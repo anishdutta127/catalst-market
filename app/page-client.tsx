@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { DottedText } from "@/components/brand/DottedText";
 import { GlobeHero } from "@/components/feed/GlobeHero";
-import { SectionCaption } from "@/components/feed/SectionCaption";
 import { WeeklyMarketPicks } from "@/components/market/WeeklyMarketPicks";
-import { StoryCard } from "@/components/story/StoryCard";
 import type { MarketPick } from "@/lib/market-picks";
 import type { AnyStory } from "@/lib/types/story";
 
@@ -17,70 +15,37 @@ export interface HomeClientProps {
 
 export function HomeClient({
   stories,
-  top3,
   weeklyMarketPicks,
 }: HomeClientProps) {
-  const [expandedSignalIdx, setExpandedSignalIdx] = useState<number | null>(null);
+  const [globeLinkedIndex, setGlobeLinkedIndex] = useState<number | null>(null);
+  const pickCount = weeklyMarketPicks?.length ?? 0;
+
+  const linkGlobeToCard = (citySlug: string) => {
+    if (pickCount === 0) return;
+    setGlobeLinkedIndex(hashToIndex(citySlug, pickCount));
+  };
 
   return (
     <div data-home="" className="min-h-screen bg-paper text-text font-sans">
       <Header />
 
-      <main className="max-w-[1120px] mx-auto px-4 md:px-6 pb-20">
-        <HeroCopy />
-
-        <section
-          data-home-globe=""
-          aria-label="Catalst Market globe"
-          className="mt-5 md:mt-7 flex justify-center"
-        >
-          <div className="w-full max-w-[640px] border-y border-rule py-2 md:py-4">
-            <GlobeHero stories={stories} showHeadline={false} />
-          </div>
-        </section>
+      <main className="mx-auto max-w-[1120px] px-4 pb-16 md:px-6 md:pb-20">
+        <GlobeStage
+          stories={stories}
+          onStopChange={linkGlobeToCard}
+          onPinTap={linkGlobeToCard}
+        />
 
         {weeklyMarketPicks && weeklyMarketPicks.length > 0 && (
-          <div data-home-weekly-picks="" className="mt-8 md:mt-12">
-            <WeeklyMarketPicks picks={weeklyMarketPicks} />
+          <div data-home-weekly-picks="" className="mt-4 md:mt-6">
+            <WeeklyMarketPicks
+              picks={weeklyMarketPicks}
+              globeLinkedIndex={globeLinkedIndex}
+            />
           </div>
         )}
 
-        <section
-          data-more-market-signals=""
-          aria-labelledby="more-market-signals-heading"
-          className="mt-12 md:mt-16 border-t border-rule pt-8 md:pt-10"
-        >
-          <SectionCaption
-            id="more-market-signals-heading"
-            text="More market signals"
-          />
-          <p className="text-[15px] leading-relaxed text-pen max-w-2xl mb-4">
-            A small archive for later. Start with the three ideas above; these
-            signals are secondary.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-            {top3.map((story, index) => (
-              <StoryCard
-                key={story.id}
-                story={story}
-                expanded={expandedSignalIdx === index}
-                variant={
-                  expandedSignalIdx !== null && expandedSignalIdx !== index
-                    ? "compact"
-                    : "default"
-                }
-                onExpandChange={(next) =>
-                  setExpandedSignalIdx(next ? index : null)
-                }
-                onBuild={(storyId) =>
-                  console.log(
-                    `[HomeClient] Build with Catalst on ${storyId} — RecipeSheet flow owns the homepage MVP.`,
-                  )
-                }
-              />
-            ))}
-          </div>
-        </section>
+        <HowItWorks />
       </main>
     </div>
   );
@@ -90,7 +55,7 @@ function Header() {
   return (
     <header
       data-home-header=""
-      className="max-w-[1120px] mx-auto px-4 md:px-6 pt-4 pb-2 flex items-center justify-between gap-3"
+      className="mx-auto flex max-w-[1120px] items-center justify-between gap-3 px-4 pb-2 pt-4 md:px-6"
     >
       <a
         href="/"
@@ -98,59 +63,82 @@ function Header() {
         style={{
           fontSize: "clamp(15px, 2vw, 18px)",
           fontVariationSettings: "'opsz' 24",
-          letterSpacing: "-0.02em",
         }}
         aria-label="Catalst Market home"
       >
-        <span className="hidden md:inline">CATALST&nbsp;MARKET</span>
-        <span className="md:hidden">CATALST</span>
+        Catalst Market
       </a>
-      <div className="inline-flex items-center gap-2 h-8 px-3 rounded-pill bg-card border border-rule shrink-0">
-        <span
-          aria-hidden="true"
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: 999,
-            background: "var(--color-cta)",
-          }}
-        />
-        <DottedText
-          text="48 HOUR TEST"
-          dotSize={1.1}
-          color="var(--color-ink)"
-          ariaLabel="48 hour test"
-        />
-      </div>
+      <DottedText
+        text="48 hour test"
+        dotSize={1.05}
+        color="var(--color-pen)"
+        ariaLabel="48 hour test"
+      />
     </header>
   );
 }
 
-function HeroCopy() {
+function GlobeStage({
+  stories,
+  onStopChange,
+  onPinTap,
+}: {
+  stories: AnyStory[];
+  onStopChange: (citySlug: string) => void;
+  onPinTap: (citySlug: string) => void;
+}) {
   return (
-    <section data-home-hero-copy="" className="pt-8 md:pt-14 text-center">
-      <p className="inline-flex items-center justify-center">
+    <section
+      data-home-globe=""
+      aria-label="Catalst Market discovery globe"
+      className="pt-4 text-center md:pt-6"
+    >
+      <div className="mx-auto flex max-w-xl flex-col items-center gap-2">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-ink">
+          Catalst Market
+        </p>
         <DottedText
-          text="See what is working. Pick your twist. Test the page."
-          dotSize={1.4}
+          text="Catalst Market"
+          dotSize={1.2}
           color="var(--color-pen)"
-          ariaLabel="See what is working. Pick your twist. Test the page."
+          ariaLabel="Catalst Market"
         />
-      </p>
-      <h1
-        className="mt-4 mx-auto max-w-4xl font-serif font-semibold text-ink leading-[0.96]"
-        style={{
-          fontSize: "clamp(2.75rem, 9vw, 6.25rem)",
-          fontVariationSettings: "'opsz' 144",
-          letterSpacing: "-0.025em",
-        }}
-      >
-        Find a business idea worth copying. Launch the waitlist in 48 hours.
-      </h1>
-      <p className="mt-4 mx-auto max-w-xl text-[15px] md:text-[18px] leading-relaxed text-pen">
-        Each week: three simple business patterns. Pick your twist, then use an
-        AI-ready waitlist page plan with a 48-hour validation path.
-      </p>
+        <p className="text-[15px] leading-relaxed text-pen md:text-[17px]">
+          3 ideas worth copying this week. See what is working. Pick your
+          twist. Launch a waitlist page.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-2 flex max-w-[720px] justify-center border-y border-rule py-1 md:mt-3 md:py-2">
+        <GlobeHero
+          stories={stories}
+          showHeadline={false}
+          onStopChange={onStopChange}
+          onPinTap={onPinTap}
+        />
+      </div>
     </section>
   );
+}
+
+function HowItWorks() {
+  return (
+    <footer
+      data-home-how-it-works=""
+      className="mt-8 border-t border-rule pt-5 text-[13px] leading-relaxed text-pen md:mt-10"
+    >
+      <p>
+        How it works: choose a card, choose your twist, then open the build plan
+        for the waitlist page.
+      </p>
+    </footer>
+  );
+}
+
+function hashToIndex(value: string, length: number): number {
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) {
+    hash = (hash + value.charCodeAt(i) * (i + 1)) % length;
+  }
+  return hash;
 }

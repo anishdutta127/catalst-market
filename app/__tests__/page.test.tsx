@@ -22,28 +22,32 @@ afterEach(() => {
   document.body.style.overflow = "";
 });
 
-describe("HomeClient - MVP homepage loop", () => {
-  test("renders the simplified page order", () => {
+describe("HomeClient - discovery homepage loop", () => {
+  test("renders the discovery-first page order", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
 
     expect(container.querySelector("[data-home-header]")).not.toBeNull();
-    expect(container.querySelector("[data-home-hero-copy]")).not.toBeNull();
     expect(container.querySelector("[data-home-globe]")).not.toBeNull();
     expect(container.querySelector("[data-home-weekly-picks]")).not.toBeNull();
-    expect(container.querySelector("[data-more-market-signals]")).not.toBeNull();
+    expect(container.querySelector("[data-card-dock]")).not.toBeNull();
+    expect(container.querySelector("[data-selected-opportunity]")).not.toBeNull();
+    expect(container.querySelector("[data-home-how-it-works]")).not.toBeNull();
+    expect(container.querySelector("[data-more-market-signals]")).toBeNull();
   });
 
-  test("first screen explains the weekly business-to-recipe loop", () => {
+  test("first screen uses quiet copy and lets the globe lead", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const hero = container.querySelector("[data-home-hero-copy]")!;
+    const globeStage = container.querySelector("[data-home-globe]")!;
 
-    expect(hero.textContent).toContain("Find a business idea worth copying");
-    expect(hero.textContent).toContain("Pick your twist");
-    expect(hero.textContent).toContain("waitlist");
-    expect(hero.textContent).toContain("48-hour validation");
+    expect(globeStage.textContent).toContain("Catalst Market");
+    expect(globeStage.textContent).toContain("3 ideas worth copying this week");
+    expect(globeStage.textContent).toContain("Pick your twist");
+    expect(globeStage.textContent).toContain("waitlist page");
+    expect(globeStage.querySelector("h1")).toBeNull();
+    expect(globeStage.querySelector("[data-globe]")).not.toBeNull();
   });
 
-  test("renders exactly three weekly market pick cards", () => {
+  test("renders exactly three collectible opportunity cards", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
     const cards = container.querySelectorAll("[data-market-pick-card]");
 
@@ -53,43 +57,25 @@ describe("HomeClient - MVP homepage loop", () => {
         card.getAttribute("data-market-pick-category"),
       ),
     ).toEqual(["established", "startup", "frontier"]);
+    expect(container.textContent).toContain("Save this card");
   });
 
-  test("renders the full recipe inline as the core value", () => {
+  test("homepage shows a short opportunity summary instead of the full recipe", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const inline = container.querySelector("[data-weekly-recipe-inline]");
+    const summary = container.querySelector("[data-selected-opportunity]")!;
 
-    expect(inline).not.toBeNull();
-    expect(container.textContent).toContain("3 ideas worth copying this week");
-    expect(container.textContent).toContain("Pick a twist");
-    expect(container.textContent).toContain("waitlist");
-    expect(container.textContent).toContain("48-hour validation");
-    const labels = Array.from(inline!.querySelectorAll("[data-dotted-text]"))
-      .map((node) => node.getAttribute("data-dotted-text-content"));
-    expect(labels).toContain("THIS BUSINESS WORKS");
-    expect(labels).toContain("WHY THIS IS WORTH TESTING");
-    expect(labels).toContain("HERE IS THE GAP");
-    expect(labels).toContain("WHAT NOT TO COPY");
-    expect(labels).toContain("PICK A TWIST");
-    expect(labels).toContain("GET THE WAITLIST PAGE");
-    expect(labels).toContain("WHAT TO LAUNCH FIRST");
-    expect(labels).toContain("AI BUILD PROMPT");
-    expect(labels).toContain("48-HOUR VALIDATION");
-    expect(labels).toContain("WHAT NOT TO BUILD YET");
+    expect(container.querySelector("[data-catalst-recipe]")).toBeNull();
+    expect(summary.textContent).toContain("What is working");
+    expect(summary.textContent).toContain("Why this is worth testing");
+    expect(summary.textContent).toContain("Market gap");
+    expect(summary.textContent).toContain("What not to copy");
+    expect(summary.textContent).toContain("Your twist");
+    expect(summary.textContent).toContain("Build this waitlist page");
   });
 
-  test("card CTA opens the expanded RecipeSheet", () => {
+  test("selecting a different twist changes the homepage waitlist angle", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const cta = container.querySelector("[data-market-pick-card] button")!;
-
-    fireEvent.click(cta);
-
-    expect(container.querySelector("[data-recipe-sheet]")).not.toBeNull();
-  });
-
-  test("selecting a different twist changes the waitlist recipe", () => {
-    const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const twistOptions = container.querySelectorAll("[data-twist-option]");
+    const twistOptions = container.querySelectorAll("[data-home-twist-option]");
 
     expect(container.textContent).toContain(
       "Finish the first care-plan draft without staring at a blank page.",
@@ -102,14 +88,16 @@ describe("HomeClient - MVP homepage loop", () => {
     );
   });
 
-  test("secondary signals are below the main weekly loop", () => {
+  test("build CTA opens the deeper RecipeSheet", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const weekly = container.querySelector("[data-home-weekly-picks]")!;
-    const more = container.querySelector("[data-more-market-signals]")!;
+    const buttons = Array.from(container.querySelectorAll("button"));
+    const buildButton = buttons.find((button) =>
+      button.textContent?.includes("Build this waitlist page"),
+    );
 
-    expect(
-      weekly.compareDocumentPosition(more) & Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
-    expect(more.querySelectorAll("[data-story-card]").length).toBe(3);
+    expect(buildButton).toBeDefined();
+    fireEvent.click(buildButton!);
+
+    expect(container.querySelector("[data-recipe-sheet]")).not.toBeNull();
   });
 });

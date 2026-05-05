@@ -20,7 +20,7 @@ afterEach(() => {
   document.body.style.overflow = "";
 });
 
-describe("MVP homepage pixel/editorial contract", () => {
+describe("Discovery homepage pixel/editorial contract", () => {
   test("top chrome keeps the pixel feel subtle", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
     const header = container.querySelector("[data-home-header]")!;
@@ -32,17 +32,16 @@ describe("MVP homepage pixel/editorial contract", () => {
     );
   });
 
-  test("hero eyebrow uses DottedText while the headline stays editorial serif", () => {
+  test("globe stage uses a small dotted eyebrow without an oversized headline", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const hero = container.querySelector("[data-home-hero-copy]")!;
-    const headline = hero.querySelector("h1")!;
+    const globe = container.querySelector("[data-home-globe]")!;
 
-    expect(hero.querySelector("[data-dotted-text]")).not.toBeNull();
-    expect(headline.className).toContain("font-serif");
-    expect(headline.querySelector("[data-dotted-text]")).toBeNull();
+    expect(globe.querySelector("[data-dotted-text]")).not.toBeNull();
+    expect(globe.querySelector("h1")).toBeNull();
+    expect(globe.querySelector("[data-globe]")).not.toBeNull();
   });
 
-  test("weekly pick labels render as dotted accents, not dense controls", () => {
+  test("weekly cards render as collectible accents, not dense controls", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
     const cards = container.querySelectorAll("[data-market-pick-card]");
 
@@ -50,24 +49,24 @@ describe("MVP homepage pixel/editorial contract", () => {
     for (const card of cards) {
       expect(card.querySelector("[data-dotted-text]")).not.toBeNull();
       expect(card.querySelector("table")).toBeNull();
+      expect(card.textContent).toContain("Card");
     }
   });
 
-  test("inline recipe section labels use dotted accents and body remains readable", () => {
+  test("homepage keeps the long recipe behind the build-plan surface", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const recipe = container.querySelector("[data-catalst-recipe]")!;
 
-    expect(recipe.querySelectorAll("[data-dotted-text]").length).toBeGreaterThan(
-      4,
-    );
-    expect(recipe.querySelector("table")).toBeNull();
+    expect(container.querySelector("[data-catalst-recipe]")).toBeNull();
+    expect(container.querySelector("[data-selected-opportunity]")).not.toBeNull();
+    expect(container.querySelector("table")).toBeNull();
   });
 
-  test("AI build prompt includes a compact copy affordance", () => {
+  test("selected summary stays compact and readable", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
-    const recipe = container.querySelector("[data-catalst-recipe]")!;
+    const summary = container.querySelector("[data-selected-opportunity]")!;
 
-    expect(recipe.textContent).toContain("Copy prompt");
-    expect(recipe.querySelector("svg")).not.toBeNull();
+    expect(summary.textContent).toContain("Why this is worth testing");
+    expect(summary.textContent).toContain("Your twist");
+    expect(summary.textContent).toContain("Build this waitlist page");
   });
 });

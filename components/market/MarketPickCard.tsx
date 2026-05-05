@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { Bookmark, Sparkles } from "lucide-react";
 import { DottedText } from "@/components/brand/DottedText";
 import { Button } from "@/components/ui/Button";
 import type { MarketPick } from "@/lib/market-picks";
@@ -8,21 +8,26 @@ import type { MarketPick } from "@/lib/market-picks";
 export interface MarketPickCardProps {
   pick: MarketPick;
   selected?: boolean;
+  linkedFromGlobe?: boolean;
+  cardNumber: number;
+  weekLabel?: string;
   onSelect: (pick: MarketPick) => void;
-  onOpenRecipe: (pick: MarketPick) => void;
 }
 
 export function MarketPickCard({
   pick,
   selected = false,
+  linkedFromGlobe = false,
+  cardNumber,
+  weekLabel = "Week 01",
   onSelect,
-  onOpenRecipe,
 }: MarketPickCardProps) {
   return (
     <article
       data-market-pick-card=""
       data-market-pick-category={pick.category}
       data-market-pick-selected={selected ? "true" : "false"}
+      data-market-pick-globe-linked={linkedFromGlobe ? "true" : "false"}
       role="button"
       tabIndex={0}
       onClick={() => onSelect(pick)}
@@ -32,86 +37,91 @@ export function MarketPickCard({
           onSelect(pick);
         }
       }}
-      aria-label={`Select waitlist idea for ${pick.sourcePattern}`}
+      aria-label={`Select opportunity card ${cardNumber}: ${pick.sourcePattern}`}
       aria-pressed={selected}
       className={[
-        "group bg-card border rounded-lg overflow-hidden transition-[box-shadow,border-color] duration-300",
+        "group relative min-h-[20rem] overflow-hidden rounded-lg border bg-card text-left",
+        "transition-[transform,box-shadow,border-color] duration-500 ease-out",
+        "hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
         selected
           ? "border-ink shadow-card-hover"
-          : "border-rule shadow-card hover:shadow-card-hover",
+          : linkedFromGlobe
+            ? "border-cta shadow-card-hover"
+            : "border-rule shadow-card hover:border-ink hover:shadow-card-hover",
       ].join(" ")}
     >
-      <div className="px-4 pt-4 pb-3 md:px-5 md:pt-5 border-b border-rule bg-paper/60">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "linear-gradient(115deg, transparent 18%, color-mix(in srgb, var(--color-cta) 18%, transparent) 38%, transparent 58%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-px rounded-[7px] border border-paper/70"
+      />
+      <div className="relative flex h-full min-h-[20rem] flex-col justify-between p-4 md:p-5">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex flex-col gap-1">
-            <span className="inline-flex items-center">
-              <DottedText
-                text={pick.category}
-                dotSize={1.25}
-                color="var(--color-pen)"
-                ariaLabel={pick.category}
-              />
+          <div className="flex flex-col gap-1.5">
+            <DottedText
+              text={pick.category}
+              dotSize={1.2}
+              color="var(--color-pen)"
+              ariaLabel={pick.category}
+            />
+            <span className="text-[11px] uppercase tracking-[0.16em] text-pen">
+              {weekLabel} / Card {String(cardNumber).padStart(2, "0")}
             </span>
-            {selected && (
-              <span className="inline-flex items-center">
-                <DottedText
-                  text="Selected idea"
-                  dotSize={1}
-                  color="var(--color-cta)"
-                  ariaLabel="Selected idea"
-                />
-              </span>
-            )}
           </div>
-          <ArrowUpRight
-            size={17}
-            className="text-pen group-hover:text-ink transition-colors shrink-0"
+          <span
             aria-hidden="true"
-          />
+            className={[
+              "inline-flex h-8 w-8 items-center justify-center rounded-full border",
+              selected ? "border-ink bg-paper" : "border-rule bg-paper/70",
+            ].join(" ")}
+          >
+            <Sparkles size={14} className="text-ink" />
+          </span>
         </div>
-        <p
-          className="mt-4 font-serif font-semibold text-ink leading-none"
-          style={{
-            fontSize: "clamp(1.875rem, 5.4vw, 2.75rem)",
-            fontVariationSettings: "'opsz' 96",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {pick.sourceCompany}
-        </p>
-      </div>
 
-      <div className="px-4 py-4 md:px-5 md:py-5 flex flex-col gap-3">
-        <h3
-          className="font-serif font-medium text-ink leading-tight"
-          style={{
-            fontSize: "clamp(1.125rem, 2.1vw, 1.5rem)",
-            fontVariationSettings: "'opsz' 48",
-          }}
-        >
-          {pick.sourcePattern}
-        </h3>
-        <p className="text-[14px] md:text-[15px] leading-relaxed text-pen">
-          {pick.smallerVersion}
-        </p>
-        <div className="grid grid-cols-2 gap-2 text-[12px] text-pen">
-          <span className="border border-rule bg-paper px-2 py-1">
-            {pick.signalLabel}
-          </span>
-          <span className="border border-rule bg-paper px-2 py-1">
-            {pick.buildDifficulty}
-          </span>
+        <div className="py-6">
+          <p
+            className="font-serif font-semibold text-ink leading-[0.95]"
+            style={{
+              fontSize: "clamp(2.1rem, 7vw, 3rem)",
+              fontVariationSettings: "'opsz' 96",
+            }}
+          >
+            {pick.sourceCompany}
+          </p>
+          <h3 className="mt-4 font-serif text-[1.25rem] leading-tight text-ink">
+            {pick.sourcePattern}
+          </h3>
+          <p className="mt-3 text-[13px] leading-relaxed text-pen">
+            {pick.smallerVersion}
+          </p>
         </div>
+
+        <div className="grid grid-cols-2 gap-2 border-t border-rule pt-3 text-[12px] text-pen">
+          <span>{pick.signalLabel}</span>
+          <span className="text-right">{pick.buildDifficulty}</span>
+          <span>{pick.locationLabel}</span>
+          <span className="text-right">{pick.confidenceScore}/100</span>
+        </div>
+
         <Button
           variant="secondary"
           size="sm"
           width="full"
           onClick={(event) => {
             event.stopPropagation();
-            onOpenRecipe(pick);
+            onSelect(pick);
           }}
         >
-          Get the waitlist page
+          Save this card
+          <Bookmark size={14} aria-hidden="true" />
         </Button>
       </div>
     </article>

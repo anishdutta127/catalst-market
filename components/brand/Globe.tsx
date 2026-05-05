@@ -110,12 +110,12 @@ const SIZE_PX: Record<GlobeSize, string> = {
 const VIEWBOX = 200;
 
 const TIMINGS = {
-  HERO: 3000,
-  ROTATE: 1800,
-  ZOOM: 3500,
+  HERO: 4200,
+  ROTATE: 3200,
+  ZOOM: 5200,
 };
 
-const ZOOM_SCALE = 2.6;
+const ZOOM_SCALE = 2.2;
 const ZOOM_CENTERED_THRESHOLD = 2.0;
 const CHAR_FADE_MS = 200;
 // Sub-cell pixel size for asterisk + plus accent glyphs in viewBox units.
@@ -274,7 +274,7 @@ export function springEase(t: number): number {
   if (t <= 0) return 0;
   if (t >= 1) return 1;
   // Underlying: y = 1 − e^(−ωt) (1 + ωt) for critically damped
-  const omega = 6.5;
+  const omega = 5.8;
   return 1 - Math.exp(-omega * t) * (1 + omega * t);
 }
 
