@@ -113,8 +113,8 @@ export function CatalstRecipePanel({
       )}
 
       <div className={framed ? "px-4 py-5 md:px-6 md:py-6" : ""}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-8">
-          <div className="flex flex-col gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.2fr] gap-5 lg:gap-8">
+          <div className="flex flex-col gap-4 md:gap-5">
             <RecipeSection title="Source pattern">
               <p>{recipe.sourcePattern}</p>
             </RecipeSection>
@@ -141,7 +141,7 @@ export function CatalstRecipePanel({
             </RecipeSection>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 md:gap-5">
             <RecipeSection title="Landing page formula">
               <OrderedList items={recipe.landingPageFormula} />
             </RecipeSection>
@@ -172,23 +172,23 @@ function RecipeHeader({
   return (
     <div className="min-w-0">
       <DottedText
-        text={`${pick.label} recipe`}
+        text={`${pick.label} AI-ready recipe`}
         dotSize={1.25}
         color="var(--color-pen)"
-        ariaLabel={`${pick.label} recipe`}
+        ariaLabel={`${pick.label} AI-ready recipe`}
       />
       <h2
         id={titleId}
         className="mt-3 font-serif font-semibold text-ink leading-tight"
         style={{
-          fontSize: "clamp(1.75rem, 5vw, 2.75rem)",
+          fontSize: "clamp(1.625rem, 4.6vw, 2.5rem)",
           fontVariationSettings: "'opsz' 96",
           letterSpacing: "-0.02em",
         }}
       >
         {pick.companyName}
       </h2>
-      <p id={descId} className="mt-2 text-[15px] md:text-[16px] leading-relaxed text-pen max-w-2xl">
+      <p id={descId} className="mt-2 text-[14px] md:text-[16px] leading-relaxed text-pen max-w-2xl">
         {pick.headline}
       </p>
     </div>
@@ -203,7 +203,7 @@ function RecipeSection({
   children: ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-2.5 text-[15px] leading-relaxed text-pen">
+    <section className="flex flex-col gap-2 text-[14px] md:text-[15px] leading-relaxed text-pen">
       <h3 className="leading-none">
         <DottedText
           text={title}
@@ -219,9 +219,9 @@ function RecipeSection({
 
 function OrderedList({ items }: { items: string[] }) {
   return (
-    <ol className="flex flex-col gap-2.5">
+    <ol className="flex flex-col gap-2">
       {items.map((item, index) => (
-        <li key={item} className="grid grid-cols-[2rem_1fr] gap-2.5">
+        <li key={item} className="grid grid-cols-[1.75rem_1fr] gap-2.5">
           <span className="font-serif text-ink tabular-nums leading-relaxed">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -259,7 +259,7 @@ function PromptBlock({ prompt }: { prompt: string }) {
   return (
     <div className="rounded-md border border-rule bg-paper overflow-hidden">
       <div className="flex items-center justify-between gap-3 border-b border-rule px-3 py-2">
-        <span className="text-[12px] text-pen">Ready for AI tools</span>
+        <span className="text-[12px] text-pen">AI-ready prompt</span>
         <button
           type="button"
           onClick={copyPrompt}
@@ -273,7 +273,7 @@ function PromptBlock({ prompt }: { prompt: string }) {
           {copied ? "Copied" : "Copy prompt"}
         </button>
       </div>
-      <p className="p-4 text-[14px] leading-relaxed text-ink whitespace-pre-line">
+      <p className="p-3 md:p-4 text-[13px] md:text-[14px] leading-relaxed text-ink whitespace-pre-line">
         {prompt}
       </p>
     </div>
@@ -286,25 +286,25 @@ function buildRecipe(pick: MarketPick): RecipeContent {
     whyItWorks: pick.whyThisWeek,
     pods: podsFor(pick.category),
     landingPageFormula: [
-      `Hero: name the buyer and the painful delay. Use this angle: ${pick.copyablePrompt}`,
-      "Problem: show the manual workaround in one short paragraph.",
-      "Workflow: preview the three-step experience a buyer would use first.",
-      "Proof: anchor the page in time saved, revenue recovered, or manual steps removed.",
-      "CTA: ask for a dated concierge pilot, not a generic waitlist.",
+      `Hero: name one buyer and one painful delay. Angle: ${pick.copyablePrompt}`,
+      "Problem: show the manual workaround in one paragraph.",
+      "Workflow: preview the first three product steps.",
+      "Proof: quantify time saved, revenue recovered, or steps removed.",
+      "CTA: ask for a dated concierge pilot.",
     ],
     aiBuildPrompt: [
-      `Build a mobile-first landing page for this Catalst Market pattern: ${pick.businessPattern}`,
+      `Build a mobile-first landing page for this proven business pattern: ${pick.businessPattern}`,
       `Use ${pick.companyName} only as source inspiration, not as a brand clone.`,
-      `Target a non-technical buyer who wants this outcome: ${pick.copyablePrompt}`,
-      "Create a restrained editorial page with a hero, problem section, workflow preview, proof strip, pricing anchor, and pilot CTA.",
-      "Use concise third-person, present-tense copy. Avoid hype, dashboards, finance-news language, emojis, and fake testimonials.",
+      `Add a personal twist for this buyer: ${pick.copyablePrompt}`,
+      "Create a restrained editorial page with a hero, problem section, workflow preview, proof strip, simple pricing anchor, and pilot CTA.",
+      "Write concise third-person, present-tense copy. Avoid hype, dashboards, finance-news language, emojis, and fake testimonials.",
     ].join("\n"),
     validationPlan: [
-      "Hour 1-4: write the buyer promise and publish a one-page pilot offer.",
+      "Hour 1-4: publish the one-page pilot offer.",
       "Hour 5-18: message 30 target users with the before and after workflow.",
-      "Hour 19-32: run five calls and ask for the current workaround, not feedback.",
-      "Hour 33-44: turn repeated objections into one pricing and scope sentence.",
-      "Hour 45-48: ask three users to commit to a dated pilot follow-up.",
+      "Hour 19-32: run five calls about current workarounds.",
+      "Hour 33-44: convert objections into one pricing and scope sentence.",
+      "Hour 45-48: ask three users for a dated pilot follow-up.",
     ],
     notYet: notYetFor(pick.category),
   };

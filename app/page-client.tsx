@@ -32,9 +32,11 @@ export function HomeClient({
         <section
           data-home-globe=""
           aria-label="Catalst Market globe"
-          className="mt-6 md:mt-8 flex justify-center"
+          className="mt-5 md:mt-7 flex justify-center"
         >
-          <GlobeHero stories={stories} showHeadline={false} />
+          <div className="w-full max-w-[640px] border-y border-rule py-2 md:py-4">
+            <GlobeHero stories={stories} showHeadline={false} />
+          </div>
         </section>
 
         {weeklyMarketPicks && weeklyMarketPicks.length > 0 && (
@@ -53,8 +55,8 @@ export function HomeClient({
             text="More market signals"
           />
           <p className="text-[15px] leading-relaxed text-pen max-w-2xl mb-4">
-            A quieter shelf of live and seed signals for later. The main loop
-            this week is the three businesses above.
+            A small archive for later. Start with the three weekly recipes
+            above; these signals are secondary.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
             {top3.map((story, index) => (
@@ -114,10 +116,10 @@ function Header() {
           }}
         />
         <DottedText
-          text="WEEKLY LOOP"
+          text="WEEKLY RECIPES"
           dotSize={1.1}
           color="var(--color-ink)"
-          ariaLabel="Weekly loop"
+          ariaLabel="Weekly recipes"
         />
       </div>
     </header>
@@ -126,29 +128,28 @@ function Header() {
 
 function HeroCopy() {
   return (
-    <section data-home-hero-copy="" className="pt-10 md:pt-16 text-center">
+    <section data-home-hero-copy="" className="pt-8 md:pt-14 text-center">
       <p className="inline-flex items-center justify-center">
         <DottedText
-          text="Study. Choose a POD. Build."
+          text="Pattern. POD. Recipe."
           dotSize={1.4}
           color="var(--color-pen)"
-          ariaLabel="Study. Choose a POD. Build."
+          ariaLabel="Pattern. POD. Recipe."
         />
       </p>
       <h1
-        className="mt-4 mx-auto max-w-4xl font-serif font-semibold text-ink leading-[0.95]"
+        className="mt-4 mx-auto max-w-4xl font-serif font-semibold text-ink leading-[0.96]"
         style={{
-          fontSize: "clamp(3rem, 10vw, 6.75rem)",
+          fontSize: "clamp(2.75rem, 9vw, 6.25rem)",
           fontVariationSettings: "'opsz' 144",
           letterSpacing: "-0.025em",
         }}
       >
-        Three businesses of the week, turned into buildable recipes.
+        Study 3 proven businesses. Turn one into your AI-ready build.
       </h1>
-      <p className="mt-5 mx-auto max-w-2xl text-[16px] md:text-[18px] leading-relaxed text-pen">
-        Catalst Market helps non-technical builders study what is working,
-        choose a POD, and turn one pattern into a landing page, AI build
-        prompt, and 48-hour validation plan.
+      <p className="mt-4 mx-auto max-w-xl text-[15px] md:text-[18px] leading-relaxed text-pen">
+        Each week: three business patterns, one personal twist, and a recipe
+        with landing copy, an AI build prompt, and a 48-hour validation plan.
       </p>
     </section>
   );

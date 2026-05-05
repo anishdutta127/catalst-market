@@ -37,8 +37,8 @@ describe("HomeClient - MVP homepage loop", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
     const hero = container.querySelector("[data-home-hero-copy]")!;
 
-    expect(hero.textContent).toContain("Three businesses of the week");
-    expect(hero.textContent).toContain("choose a POD");
+    expect(hero.textContent).toContain("Study 3 proven businesses");
+    expect(hero.textContent).toContain("personal twist");
     expect(hero.textContent).toContain("48-hour validation plan");
   });
 

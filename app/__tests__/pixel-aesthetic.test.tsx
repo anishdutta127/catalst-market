@@ -27,7 +27,9 @@ describe("MVP homepage pixel/editorial contract", () => {
     const label = header.querySelector("[data-dotted-text]");
 
     expect(label).not.toBeNull();
-    expect(label!.getAttribute("data-dotted-text-content")).toBe("WEEKLY LOOP");
+    expect(label!.getAttribute("data-dotted-text-content")).toBe(
+      "WEEKLY RECIPES",
+    );
   });
 
   test("hero eyebrow uses DottedText while the headline stays editorial serif", () => {

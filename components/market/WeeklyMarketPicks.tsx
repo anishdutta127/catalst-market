@@ -28,19 +28,19 @@ export function WeeklyMarketPicks({ picks }: WeeklyMarketPicksProps) {
       <div className="mb-4 md:mb-5 flex flex-col gap-2">
         <h2 id="weekly-market-picks-heading" className="leading-none">
           <DottedText
-            text="Businesses of the week"
+            text="3 weekly dispatches"
             dotSize={1.5}
             color="var(--color-pen)"
-            ariaLabel="Businesses of the week"
+            ariaLabel="3 weekly dispatches"
           />
         </h2>
-        <p className="font-serif text-ink leading-tight max-w-2xl text-[1.5rem] md:text-[2rem]">
-          Three patterns worth copying before they become obvious. The recipe
-          is the product.
+        <p className="font-serif text-ink leading-tight max-w-2xl text-[1.375rem] md:text-[2rem]">
+          Pick the business pattern that fits your edge. The recipe below is
+          the payoff.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 items-stretch">
         {picks.map((pick) => (
           <MarketPickCard
             key={pick.category}
