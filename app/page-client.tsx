@@ -55,8 +55,8 @@ export function HomeClient({
             text="More market signals"
           />
           <p className="text-[15px] leading-relaxed text-pen max-w-2xl mb-4">
-            A small archive for later. Start with the three weekly recipes
-            above; these signals are secondary.
+            A small archive for later. Start with the three ideas above; these
+            signals are secondary.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
             {top3.map((story, index) => (
@@ -116,10 +116,10 @@ function Header() {
           }}
         />
         <DottedText
-          text="WEEKLY RECIPES"
+          text="48 HOUR TEST"
           dotSize={1.1}
           color="var(--color-ink)"
-          ariaLabel="Weekly recipes"
+          ariaLabel="48 hour test"
         />
       </div>
     </header>
@@ -131,10 +131,10 @@ function HeroCopy() {
     <section data-home-hero-copy="" className="pt-8 md:pt-14 text-center">
       <p className="inline-flex items-center justify-center">
         <DottedText
-          text="Pattern. POD. Recipe."
+          text="See what is working. Pick your twist. Test the page."
           dotSize={1.4}
           color="var(--color-pen)"
-          ariaLabel="Pattern. POD. Recipe."
+          ariaLabel="See what is working. Pick your twist. Test the page."
         />
       </p>
       <h1
@@ -145,11 +145,11 @@ function HeroCopy() {
           letterSpacing: "-0.025em",
         }}
       >
-        Study 3 proven businesses. Turn one into your AI-ready build.
+        Find a business idea worth copying. Launch the waitlist in 48 hours.
       </h1>
       <p className="mt-4 mx-auto max-w-xl text-[15px] md:text-[18px] leading-relaxed text-pen">
-        Each week: three business patterns, one personal twist, and a recipe
-        with landing copy, an AI build prompt, and a 48-hour validation plan.
+        Each week: three simple business patterns. Pick your twist, then use an
+        AI-ready waitlist page plan with a 48-hour validation path.
       </p>
     </section>
   );

@@ -1,32 +1,221 @@
 [
   {
+    "id": "templates-for-narrow-work",
     "category": "established",
-    "storyId": "phonepe-ipo-filing",
-    "label": "Established",
-    "companyName": "PhonePe",
-    "headline": "Payments trust becomes merchant workflow",
-    "businessPattern": "Use a trusted transaction habit as the entry point into one adjacent merchant workflow.",
-    "whyThisWeek": "PhonePe's $15B NSE filing shows Indian payment rails can become durable business infrastructure, not only a transaction layer.",
-    "copyablePrompt": "Build a trust-first workflow tool for one offline merchant category that already accepts digital payments but still runs operations manually."
+    "sourceCompany": "Template libraries",
+    "sourcePattern": "Templates make complex work easier.",
+    "simpleExplanation": "People pay when a blank page is scary and a clear starting point saves time.",
+    "whyPeoplePay": "The buyer does not want another tool. They want a trusted starting point that makes the first draft feel possible.",
+    "marketGap": "Most template products are too broad. A narrow group needs examples written in their own language.",
+    "copyableMechanic": "Turn repeated expert work into ready-to-edit templates for one specific user group.",
+    "smallerVersion": "A waitlist page for an AI template tool for one narrow profession or student group.",
+    "whatNotToCopy": "Do not copy a template marketplace, brand, protected content, or full library. Copy the mechanic: reduce blank-page work for one group.",
+    "locationLabel": "Global",
+    "signalLabel": "Template demand",
+    "confidenceScore": 82,
+    "buildDifficulty": "low",
+    "recommendedTwists": [
+      {
+        "id": "nursing-students",
+        "title": "Nursing student care-plan templates",
+        "simpleDescription": "AI-assisted templates for students writing care plans and clinical reflections.",
+        "targetUser": "Nursing students in their first clinical year",
+        "gapItUses": "Generic study tools do not understand care-plan structure or clinical language.",
+        "whyThisTwistCanWin": "The user has urgent weekly assignments and wants a safe starting point, not a full study platform.",
+        "landingPageAngle": "Finish the first care-plan draft without staring at a blank page."
+      },
+      {
+        "id": "solo-lawyers",
+        "title": "Solo lawyer intake templates",
+        "simpleDescription": "Reusable intake, follow-up, and client-summary templates for solo legal practices.",
+        "targetUser": "Solo lawyers handling client intake without staff",
+        "gapItUses": "Practice software is heavy, while intake writing is repetitive and time-sensitive.",
+        "whyThisTwistCanWin": "A narrow template pack can feel useful before a full legal workflow product exists.",
+        "landingPageAngle": "Turn messy intake notes into a clean first client summary."
+      },
+      {
+        "id": "teacher-feedback",
+        "title": "Teacher feedback comment templates",
+        "simpleDescription": "AI-ready feedback starters for teachers writing report-card and assignment comments.",
+        "targetUser": "Teachers writing repeated student feedback",
+        "gapItUses": "Schools have policies, but teachers still write comments from scratch.",
+        "whyThisTwistCanWin": "The job is repetitive, emotional, and frequent enough for a small focused tool.",
+        "landingPageAngle": "Write specific student feedback faster without sounding generic."
+      }
+    ],
+    "recipe": {
+      "landingPageSections": [
+        "Hero with the exact user and blank-page problem",
+        "Before-and-after example of one template",
+        "Three template categories included in the first pack",
+        "Waitlist form with role and weekly workload fields",
+        "Short note explaining that the full tool is not built yet"
+      ],
+      "waitlistOffer": "Join the waitlist to get the first 10 AI-ready templates for your exact workflow.",
+      "aiBuildPrompt": "Build a mobile-first waitlist landing page for a narrow AI template product. Make the page explain the blank-page problem, show one example template, list the first template pack, and collect waitlist emails plus role and workload.",
+      "validationPlan": [
+        "Hour 1-4: publish the waitlist page with one example template.",
+        "Hour 5-16: send it to 25 people in the target group.",
+        "Hour 17-28: ask five people what they currently copy from.",
+        "Hour 29-40: test whether the example template gets replies or saves.",
+        "Hour 41-48: invite interested users to request the next five templates."
+      ],
+      "whatNotToBuildYet": [
+        "Do not build accounts, dashboards, or a template marketplace.",
+        "Do not support every profession.",
+        "Do not generate templates before proving which one group wants."
+      ],
+      "skillFiles": [
+        "content/skill-files/catalst-build-method.md",
+        "content/skill-files/waitlist-validation.md",
+        "content/skill-files/ai-build-rules.md"
+      ]
+    }
   },
   {
+    "id": "answer-engine-for-a-niche",
     "category": "startup",
-    "storyId": "zepto-series-f-2026",
-    "label": "Startup",
-    "companyName": "Zepto",
-    "headline": "Speed becomes a repeat purchase wedge",
-    "businessPattern": "Turn one recurring local purchase into a habit by removing the waiting time around it.",
-    "whyThisWeek": "Zepto reaching profitable per-order economics across 30 Indian cities makes speed look like an operating model, not a discount trick.",
-    "copyablePrompt": "Build a neighborhood-first service that removes waiting time from one routine purchase for one dense local buyer group."
+    "sourceCompany": "Answer engines",
+    "sourcePattern": "Answer engines reduce research time.",
+    "simpleExplanation": "People pay when they need a clear answer faster than they can search, compare, and verify it themselves.",
+    "whyPeoplePay": "The buyer is not buying search. They are buying confidence that the answer is sourced and specific to their world.",
+    "marketGap": "Most answer tools are general. Niche audiences still need trusted answers with sources they recognize.",
+    "copyableMechanic": "Collect trusted sources for one audience and turn repeated questions into clear answer pages.",
+    "smallerVersion": "A trusted answer page for one niche audience with source links and a waitlist.",
+    "whatNotToCopy": "Do not copy an AI search product, crawler, ranking system, or brand. Copy the mechanic: faster trusted answers for one audience.",
+    "locationLabel": "Niche web",
+    "signalLabel": "Research pain",
+    "confidenceScore": 78,
+    "buildDifficulty": "medium",
+    "recommendedTwists": [
+      {
+        "id": "college-scholarships",
+        "title": "Scholarship answer page",
+        "simpleDescription": "A sourced answer page for students comparing scholarships, deadlines, and eligibility.",
+        "targetUser": "Students applying for scholarships",
+        "gapItUses": "Scholarship information is scattered across PDFs, university pages, and old blog posts.",
+        "whyThisTwistCanWin": "A narrow answer page can build trust with source links before any product automation exists.",
+        "landingPageAngle": "Find scholarships you are eligible for without opening 20 tabs."
+      },
+      {
+        "id": "immigration-docs",
+        "title": "Immigration document answer page",
+        "simpleDescription": "A sourced page that answers one visa-document checklist for one country pair.",
+        "targetUser": "Applicants preparing a specific visa packet",
+        "gapItUses": "Applicants do not trust generic advice and need sources they can show or verify.",
+        "whyThisTwistCanWin": "One narrow route can be validated with careful manual research before building software.",
+        "landingPageAngle": "Know which documents to prepare for one specific application route."
+      },
+      {
+        "id": "creator-sponsorships",
+        "title": "Creator sponsorship answer page",
+        "simpleDescription": "A trusted page that answers pricing and outreach questions for one creator niche.",
+        "targetUser": "Small creators selling their first sponsorships",
+        "gapItUses": "Creators see generic advice, but not rates and examples for their exact niche.",
+        "whyThisTwistCanWin": "The page can start as curated examples and a waitlist before becoming a workflow tool.",
+        "landingPageAngle": "Price your first sponsorship with examples from your niche."
+      }
+    ],
+    "recipe": {
+      "landingPageSections": [
+        "Hero naming the exact question the page answers",
+        "One sample answer with visible source links",
+        "Why the sources are trustworthy",
+        "Waitlist form asking for the user's next question",
+        "Manual concierge research offer for the first users"
+      ],
+      "waitlistOffer": "Join the waitlist to get sourced answers for the next set of questions in this niche.",
+      "aiBuildPrompt": "Build a mobile-first waitlist landing page for a niche trusted-answer product. The page should show one clear sourced answer, explain the audience, list the trusted source types, and collect emails plus the user's next question.",
+      "validationPlan": [
+        "Hour 1-4: publish one sourced answer page.",
+        "Hour 5-14: share it with 20 people who ask that question.",
+        "Hour 15-26: record which source links they click or mention.",
+        "Hour 27-38: ask users to submit the next question they want answered.",
+        "Hour 39-48: manually answer three submitted questions and ask if they would join a paid beta."
+      ],
+      "whatNotToBuildYet": [
+        "Do not build a search engine.",
+        "Do not scrape the web at scale.",
+        "Do not answer every category before one niche trusts one answer."
+      ],
+      "skillFiles": [
+        "content/skill-files/catalst-build-method.md",
+        "content/skill-files/waitlist-validation.md",
+        "content/skill-files/ai-build-rules.md"
+      ]
+    }
   },
   {
+    "id": "voice-agent-for-local-services",
     "category": "frontier",
-    "storyId": "sarvam-ai-multilingual-launch",
-    "label": "Frontier",
-    "companyName": "Sarvam AI",
-    "headline": "Local-language AI creates a product gap",
-    "businessPattern": "Wrap a language-specific model advantage around one workflow global platforms overlook.",
-    "whyThisWeek": "Sarvam's open-weight Indian language model gives builders a self-hostable base for vernacular software.",
-    "copyablePrompt": "Build an AI workflow for one Indian-language user group whose current software assumes English."
+    "sourceCompany": "Voice and agent tools",
+    "sourcePattern": "Voice and agents reduce repeated human work.",
+    "simpleExplanation": "People pay when a repeated question interrupts paid work and the answer can be handled safely.",
+    "whyPeoplePay": "The buyer wants fewer missed calls, fewer repeated replies, and a calmer front desk.",
+    "marketGap": "General agent tools feel abstract. Local service businesses need a very narrow assistant for their exact enquiry flow.",
+    "copyableMechanic": "Turn one repeated phone or message workflow into a simple waitlist offer for a narrow local category.",
+    "smallerVersion": "A waitlist page for an AI receptionist or enquiry assistant for one local service category.",
+    "whatNotToCopy": "Do not copy a voice platform, model, or agent stack. Copy the mechanic: reduce repeated enquiry work for one service category.",
+    "locationLabel": "Local services",
+    "signalLabel": "Repeated calls",
+    "confidenceScore": 74,
+    "buildDifficulty": "medium",
+    "recommendedTwists": [
+      {
+        "id": "dental-reception",
+        "title": "Dental enquiry assistant",
+        "simpleDescription": "A waitlist page for an assistant that answers opening hours, insurance basics, and appointment requests.",
+        "targetUser": "Small dental clinics without a full-time receptionist",
+        "gapItUses": "Clinics miss routine calls while staff are with patients.",
+        "whyThisTwistCanWin": "The first version can validate demand with a landing page and manual callback flow.",
+        "landingPageAngle": "Stop losing routine dental enquiries while staff are busy."
+      },
+      {
+        "id": "salon-bookings",
+        "title": "Salon booking enquiry assistant",
+        "simpleDescription": "A waitlist page for an assistant that handles price, availability, and booking questions.",
+        "targetUser": "Independent salons and beauty studios",
+        "gapItUses": "Owners answer the same DMs while also doing appointments.",
+        "whyThisTwistCanWin": "The promise is simple: fewer repeated replies before any complex booking system exists.",
+        "landingPageAngle": "Reply to common salon booking questions without pausing appointments."
+      },
+      {
+        "id": "tuition-centres",
+        "title": "Tuition centre enquiry assistant",
+        "simpleDescription": "A waitlist page for an assistant that answers fees, batches, subjects, and trial-class questions.",
+        "targetUser": "Local tuition centres handling parent enquiries",
+        "gapItUses": "Parents ask repeated questions across WhatsApp, calls, and forms.",
+        "whyThisTwistCanWin": "The first product can be a simple enquiry capture and FAQ flow, not a full agent.",
+        "landingPageAngle": "Answer parent enquiries faster without hiring admin help."
+      }
+    ],
+    "recipe": {
+      "landingPageSections": [
+        "Hero naming the local business and repeated enquiry problem",
+        "List of questions the assistant can handle first",
+        "Example before-and-after enquiry flow",
+        "Waitlist form asking business type and enquiry volume",
+        "Manual setup offer for first pilot customers"
+      ],
+      "waitlistOffer": "Join the waitlist to test a simple enquiry assistant for your local service business.",
+      "aiBuildPrompt": "Build a mobile-first waitlist landing page for a narrow AI enquiry assistant. The page should explain the repeated enquiry problem, show the first questions it can handle, include an example enquiry flow, and collect waitlist emails plus business type and enquiry volume.",
+      "validationPlan": [
+        "Hour 1-4: publish the page with one example enquiry flow.",
+        "Hour 5-16: contact 20 local businesses in the chosen category.",
+        "Hour 17-28: ask which repeated questions waste staff time.",
+        "Hour 29-40: offer a manual pilot where enquiries are triaged by hand.",
+        "Hour 41-48: ask three businesses to share enquiry scripts or FAQs."
+      ],
+      "whatNotToBuildYet": [
+        "Do not build a full voice agent.",
+        "Do not integrate calendars, payments, or auth first.",
+        "Do not support every local service category."
+      ],
+      "skillFiles": [
+        "content/skill-files/catalst-build-method.md",
+        "content/skill-files/waitlist-validation.md",
+        "content/skill-files/ai-build-rules.md"
+      ]
+    }
   }
 ]

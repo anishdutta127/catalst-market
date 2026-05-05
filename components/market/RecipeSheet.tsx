@@ -2,10 +2,10 @@
 
 import { Check, Clipboard, X } from "lucide-react";
 import type { ReactNode } from "react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { DottedText } from "@/components/brand/DottedText";
 import { Button } from "@/components/ui/Button";
-import type { MarketPick, MarketPickCategory } from "@/lib/market-picks";
+import type { MarketPick, RecommendedTwist } from "@/lib/market-picks";
 
 export interface RecipeSheetProps {
   pick: MarketPick | null;
@@ -13,14 +13,15 @@ export interface RecipeSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
-interface RecipeContent {
-  sourcePattern: string;
-  whyItWorks: string;
-  pods: string[];
-  landingPageFormula: string[];
+interface ActiveRecipe {
+  heroHeadline: string;
+  subheadline: string;
+  waitlistCta: string;
+  landingPageSections: string[];
+  whatToTrack: string[];
   aiBuildPrompt: string;
   validationPlan: string[];
-  notYet: string[];
+  whatNotToBuildYet: string[];
 }
 
 export function RecipeSheet({ pick, open, onOpenChange }: RecipeSheetProps) {
@@ -64,7 +65,7 @@ export function RecipeSheet({ pick, open, onOpenChange }: RecipeSheetProps) {
         className="absolute inset-0 w-full h-full bg-ink/28 cursor-default"
       />
 
-      <div className="absolute inset-x-0 bottom-0 md:inset-y-5 md:right-5 md:left-auto md:w-[min(680px,calc(100vw-40px))]">
+      <div className="absolute inset-x-0 bottom-0 md:inset-y-5 md:right-5 md:left-auto md:w-[min(720px,calc(100vw-40px))]">
         <div className="bg-card border border-rule rounded-t-xl md:rounded-xl shadow-sheet max-h-[90vh] md:max-h-full overflow-hidden flex flex-col">
           <header className="px-4 py-4 md:px-6 md:py-5 border-b border-rule bg-paper">
             <div className="flex items-start justify-between gap-4">
@@ -94,7 +95,26 @@ export function CatalstRecipePanel({
   pick: MarketPick;
   framed?: boolean;
 }) {
-  const recipe = buildRecipe(pick);
+  const [selectedTwistId, setSelectedTwistId] = useState(
+    pick.recommendedTwists[0]?.id ?? "",
+  );
+  const [customTwist, setCustomTwist] = useState("");
+
+  useEffect(() => {
+    setSelectedTwistId(pick.recommendedTwists[0]?.id ?? "");
+    setCustomTwist("");
+  }, [pick.id, pick.recommendedTwists]);
+
+  const selectedTwist =
+    pick.recommendedTwists.find((twist) => twist.id === selectedTwistId) ??
+    pick.recommendedTwists[0];
+  const activeTwist = customTwist.trim()
+    ? customTwistToRecommendedTwist(pick, customTwist.trim())
+    : selectedTwist;
+  const recipe = useMemo(
+    () => buildRecipe(pick, activeTwist),
+    [pick, activeTwist],
+  );
 
   return (
     <article
@@ -113,45 +133,74 @@ export function CatalstRecipePanel({
       )}
 
       <div className={framed ? "px-4 py-5 md:px-6 md:py-6" : ""}>
-        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.2fr] gap-5 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-5 lg:gap-8">
           <div className="flex flex-col gap-4 md:gap-5">
-            <RecipeSection title="Source pattern">
-              <p>{recipe.sourcePattern}</p>
+            <RecipeSection title="This business works">
+              <p className="text-ink font-medium">{pick.sourcePattern}</p>
+              <p>{pick.simpleExplanation}</p>
             </RecipeSection>
 
-            <RecipeSection title="Why this business works">
-              <p>{recipe.whyItWorks}</p>
+            <RecipeSection title="Why this is worth testing">
+              <p>{pick.whyPeoplePay}</p>
             </RecipeSection>
 
-            <RecipeSection title="Recommended PODs">
-              <div className="flex flex-wrap gap-2">
-                {recipe.pods.map((pod) => (
-                  <span
-                    key={pod}
-                    className="inline-flex rounded-pill border border-rule bg-paper px-3 py-1.5 text-[13px] text-ink"
-                  >
-                    {pod}
-                  </span>
-                ))}
-              </div>
+            <RecipeSection title="Here is the gap">
+              <p>{pick.marketGap}</p>
             </RecipeSection>
 
-            <RecipeSection title="What not to build yet">
-              <PlainList items={recipe.notYet} />
+            <RecipeSection title="What not to copy">
+              <p>{pick.whatNotToCopy}</p>
+            </RecipeSection>
+
+            <RecipeSection title="Pick a twist">
+              <TwistPicker
+                twists={pick.recommendedTwists}
+                selectedTwistId={selectedTwistId}
+                customTwist={customTwist}
+                onSelectTwist={(twistId) => {
+                  setSelectedTwistId(twistId);
+                  setCustomTwist("");
+                }}
+                onCustomTwistChange={setCustomTwist}
+              />
             </RecipeSection>
           </div>
 
           <div className="flex flex-col gap-4 md:gap-5">
-            <RecipeSection title="Landing page formula">
-              <OrderedList items={recipe.landingPageFormula} />
+            <RecipeSection title="Your smaller version">
+              <p>{pick.smallerVersion}</p>
+              <HighlightBox
+                title={activeTwist.title}
+                body={`${activeTwist.simpleDescription} Target user: ${activeTwist.targetUser}.`}
+              />
+            </RecipeSection>
+
+            <RecipeSection title="Get the waitlist page">
+              <LandingPagePreview recipe={recipe} />
+            </RecipeSection>
+
+            <RecipeSection title="What to launch first">
+              <OrderedList items={recipe.landingPageSections} />
+            </RecipeSection>
+
+            <RecipeSection title="What to track">
+              <PlainList items={recipe.whatToTrack} />
             </RecipeSection>
 
             <RecipeSection title="AI build prompt">
               <PromptBlock prompt={recipe.aiBuildPrompt} />
             </RecipeSection>
 
-            <RecipeSection title="48-hour validation plan">
+            <RecipeSection title="48-hour validation">
               <OrderedList items={recipe.validationPlan} />
+            </RecipeSection>
+
+            <RecipeSection title="What not to build yet">
+              <PlainList items={recipe.whatNotToBuildYet} />
+            </RecipeSection>
+
+            <RecipeSection title="Skill files">
+              <PlainList items={pick.recipe.skillFiles} />
             </RecipeSection>
           </div>
         </div>
@@ -172,10 +221,10 @@ function RecipeHeader({
   return (
     <div className="min-w-0">
       <DottedText
-        text={`${pick.label} AI-ready recipe`}
+        text={`${pick.category} waitlist recipe`}
         dotSize={1.25}
         color="var(--color-pen)"
-        ariaLabel={`${pick.label} AI-ready recipe`}
+        ariaLabel={`${pick.category} waitlist recipe`}
       />
       <h2
         id={titleId}
@@ -186,10 +235,10 @@ function RecipeHeader({
           letterSpacing: "-0.02em",
         }}
       >
-        {pick.companyName}
+        {pick.sourcePattern}
       </h2>
       <p id={descId} className="mt-2 text-[14px] md:text-[16px] leading-relaxed text-pen max-w-2xl">
-        {pick.headline}
+        {pick.simpleExplanation}
       </p>
     </div>
   );
@@ -217,7 +266,97 @@ function RecipeSection({
   );
 }
 
-function OrderedList({ items }: { items: string[] }) {
+function TwistPicker({
+  twists,
+  selectedTwistId,
+  customTwist,
+  onSelectTwist,
+  onCustomTwistChange,
+}: {
+  twists: readonly RecommendedTwist[];
+  selectedTwistId: string;
+  customTwist: string;
+  onSelectTwist: (twistId: string) => void;
+  onCustomTwistChange: (value: string) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-2.5">
+      {twists.map((twist) => {
+        const selected = !customTwist.trim() && twist.id === selectedTwistId;
+        return (
+          <button
+            key={twist.id}
+            type="button"
+            data-twist-option=""
+            data-selected={selected ? "true" : "false"}
+            onClick={() => onSelectTwist(twist.id)}
+            className={[
+              "text-left rounded-md border px-3 py-3 transition-colors cursor-pointer",
+              selected
+                ? "border-ink bg-paper text-ink"
+                : "border-rule bg-card text-pen hover:border-ink",
+            ].join(" ")}
+          >
+            <span className="block text-[14px] font-semibold text-ink">
+              {twist.title}
+            </span>
+            <span className="mt-1 block text-[13px] leading-relaxed">
+              {twist.simpleDescription}
+            </span>
+          </button>
+        );
+      })}
+      <label className="flex flex-col gap-1.5">
+        <span className="text-[12px] font-semibold text-ink">
+          Or write your own twist
+        </span>
+        <input
+          type="text"
+          value={customTwist}
+          onChange={(event) => onCustomTwistChange(event.target.value)}
+          placeholder="Example: for independent fitness coaches"
+          className="min-h-11 rounded-md border border-rule bg-paper px-3 text-[14px] text-ink outline-none transition-colors placeholder:text-pen/60 focus:border-ink"
+        />
+      </label>
+    </div>
+  );
+}
+
+function LandingPagePreview({ recipe }: { recipe: ActiveRecipe }) {
+  return (
+    <div className="rounded-md border border-rule bg-paper overflow-hidden">
+      <div className="border-b border-rule px-3 py-3">
+        <span className="text-[12px] font-semibold text-pen">
+          Suggested hero headline
+        </span>
+        <p className="mt-1 font-serif text-[1.25rem] leading-tight text-ink">
+          {recipe.heroHeadline}
+        </p>
+      </div>
+      <div className="px-3 py-3 flex flex-col gap-2 text-[13px] leading-relaxed">
+        <p>
+          <span className="font-semibold text-ink">Subheadline: </span>
+          {recipe.subheadline}
+        </p>
+        <p>
+          <span className="font-semibold text-ink">Waitlist CTA: </span>
+          {recipe.waitlistCta}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function HighlightBox({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-md border border-rule bg-paper px-3 py-3">
+      <p className="text-[14px] font-semibold text-ink">{title}</p>
+      <p className="mt-1 text-[13px] leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function OrderedList({ items }: { items: readonly string[] }) {
   return (
     <ol className="flex flex-col gap-2">
       {items.map((item, index) => (
@@ -232,7 +371,7 @@ function OrderedList({ items }: { items: string[] }) {
   );
 }
 
-function PlainList({ items }: { items: string[] }) {
+function PlainList({ items }: { items: readonly string[] }) {
   return (
     <ul className="flex flex-col gap-2">
       {items.map((item) => (
@@ -259,7 +398,9 @@ function PromptBlock({ prompt }: { prompt: string }) {
   return (
     <div className="rounded-md border border-rule bg-paper overflow-hidden">
       <div className="flex items-center justify-between gap-3 border-b border-rule px-3 py-2">
-        <span className="text-[12px] text-pen">AI-ready prompt</span>
+        <span className="text-[12px] text-pen">
+          For Codex, Cursor, Lovable, or Bolt
+        </span>
         <button
           type="button"
           onClick={copyPrompt}
@@ -280,74 +421,82 @@ function PromptBlock({ prompt }: { prompt: string }) {
   );
 }
 
-function buildRecipe(pick: MarketPick): RecipeContent {
+function buildRecipe(pick: MarketPick, twist: RecommendedTwist): ActiveRecipe {
+  const heroHeadline = twist.landingPageAngle;
+  const subheadline = `A focused waitlist page for ${twist.targetUser} who need ${twist.gapItUses.toLowerCase()}.`;
+  const waitlistCta = `${pick.recipe.waitlistOffer} for ${twist.targetUser}`;
+
   return {
-    sourcePattern: pick.businessPattern,
-    whyItWorks: pick.whyThisWeek,
-    pods: podsFor(pick.category),
-    landingPageFormula: [
-      `Hero: name one buyer and one painful delay. Angle: ${pick.copyablePrompt}`,
-      "Problem: show the manual workaround in one paragraph.",
-      "Workflow: preview the first three product steps.",
-      "Proof: quantify time saved, revenue recovered, or steps removed.",
-      "CTA: ask for a dated concierge pilot.",
+    heroHeadline,
+    subheadline,
+    waitlistCta,
+    landingPageSections: [
+      `Hero: ${heroHeadline}`,
+      `Problem: name the slow manual workaround for ${twist.targetUser}.`,
+      `Twist: explain ${twist.title.toLowerCase()} in one plain paragraph.`,
+      ...pick.recipe.landingPageSections,
+      `Waitlist: ask for email, role, and the one task they want solved first.`,
     ],
-    aiBuildPrompt: [
-      `Build a mobile-first landing page for this proven business pattern: ${pick.businessPattern}`,
-      `Use ${pick.companyName} only as source inspiration, not as a brand clone.`,
-      `Add a personal twist for this buyer: ${pick.copyablePrompt}`,
-      "Create a restrained editorial page with a hero, problem section, workflow preview, proof strip, simple pricing anchor, and pilot CTA.",
-      "Write concise third-person, present-tense copy. Avoid hype, dashboards, finance-news language, emojis, and fake testimonials.",
-    ].join("\n"),
+    whatToTrack: [
+      "CTA clicks on the hero and final waitlist block.",
+      "Waitlist form submissions by target user type.",
+      "Replies that describe the same repeated pain in their own words.",
+      "Requests for a demo, template, or concierge version before the product exists.",
+    ],
+    aiBuildPrompt: buildPrompt(pick, twist, heroHeadline, subheadline, waitlistCta),
     validationPlan: [
-      "Hour 1-4: publish the one-page pilot offer.",
-      "Hour 5-18: message 30 target users with the before and after workflow.",
-      "Hour 19-32: run five calls about current workarounds.",
-      "Hour 33-44: convert objections into one pricing and scope sentence.",
-      "Hour 45-48: ask three users for a dated pilot follow-up.",
+      `Hour 1-4: publish a mobile-first waitlist page for ${twist.targetUser}.`,
+      `Hour 5-18: send the page to 25 people who match this twist: ${twist.title}.`,
+      "Hour 19-30: ask five interested users what they currently use and what feels too slow.",
+      `Hour 31-42: rewrite the headline around the clearest phrase from ${twist.targetUser}.`,
+      "Hour 43-48: count waitlist submissions, qualified replies, and requests for a first version.",
+      ...pick.recipe.validationPlan,
     ],
-    notYet: notYetFor(pick.category),
+    whatNotToBuildYet: [
+      ...pick.recipe.whatNotToBuildYet,
+      `Do not build beyond ${twist.targetUser} until the waitlist shows repeated demand.`,
+      `Do not copy the source company, brand, protected content, code, or full product.`,
+    ],
   };
 }
 
-function podsFor(category: MarketPickCategory): string[] {
-  switch (category) {
-    case "established":
-      return ["Merchant ops", "Compliance helper", "Workflow add-on"];
-    case "startup":
-      return ["Neighborhood service", "Repeat purchase tool", "Local supply layer"];
-    case "frontier":
-      return ["Language workflow", "Vertical AI wrapper", "Trust and review layer"];
-    default: {
-      const _exhaustive: never = category;
-      return _exhaustive;
-    }
-  }
+function buildPrompt(
+  pick: MarketPick,
+  twist: RecommendedTwist,
+  heroHeadline: string,
+  subheadline: string,
+  waitlistCta: string,
+) {
+  return [
+    "Build a mobile-first waitlist landing page, not a full app.",
+    `Source pattern to study: ${pick.sourcePattern}`,
+    `Do not copy the source brand, protected content, code, or full product. Extract only this mechanic: ${pick.copyableMechanic}`,
+    `Selected twist: ${twist.title}`,
+    `Target user: ${twist.targetUser}`,
+    `Gap this uses: ${twist.gapItUses}`,
+    `Why this twist can win: ${twist.whyThisTwistCanWin}`,
+    `Hero headline: ${heroHeadline}`,
+    `Subheadline: ${subheadline}`,
+    `Waitlist CTA: ${waitlistCta}`,
+    "Page sections: hero, problem, why now, how the smaller version works, waitlist form, and what the first version will not include.",
+    "Acceptance criteria: mobile-first layout, clear single offer, working waitlist form UI, CTA click tracking hooks, no auth, no dashboard, no fake testimonials.",
+    "Use these Catalst skill-file principles: start with the narrowest possible user; build the landing page before the product; add waitlist capture first; avoid full dashboards in v1; make every claim specific enough to test in 48 hours.",
+    `Referenced skill files: ${pick.recipe.skillFiles.join(", ")}`,
+  ].join("\n");
 }
 
-function notYetFor(category: MarketPickCategory): string[] {
-  switch (category) {
-    case "established":
-      return [
-        "Do not rebuild the full platform or payments stack.",
-        "Do not sell to every merchant category on day one.",
-        "Do not start with dashboards; start with one painful workflow.",
-      ];
-    case "startup":
-      return [
-        "Do not copy the logistics footprint.",
-        "Do not promise instant delivery before demand is proven.",
-        "Do not build a marketplace until one neighborhood repeats.",
-      ];
-    case "frontier":
-      return [
-        "Do not train a model first.",
-        "Do not start with a generic chatbot.",
-        "Do not support every language or role before one workflow works.",
-      ];
-    default: {
-      const _exhaustive: never = category;
-      return _exhaustive;
-    }
-  }
+function customTwistToRecommendedTwist(
+  pick: MarketPick,
+  customTwist: string,
+): RecommendedTwist {
+  return {
+    id: "custom-twist",
+    title: customTwist,
+    simpleDescription: `A custom version of this pattern for ${customTwist}.`,
+    targetUser: customTwist,
+    gapItUses: pick.marketGap,
+    whyThisTwistCanWin:
+      "It starts with one narrow audience before building the full product.",
+    landingPageAngle: `A simpler ${pick.sourcePattern.toLowerCase()} for ${customTwist}`,
+  };
 }

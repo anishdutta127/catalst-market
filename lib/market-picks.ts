@@ -1,46 +1,64 @@
 /**
  * Weekly market picks.
  *
- * Static, curated source for the homepage MVP loop. This deliberately does
- * not touch live APIs: importing the module validates the JSON and fails the
- * build if the weekly file stops being exactly Established / Startup /
- * Frontier or points at a missing seed story.
+ * Static, curated source for the homepage MVP loop. These are Catalst sample
+ * picks: they describe copyable business patterns, not live market facts.
+ * Importing this module validates the JSON and fails the build if the weekly
+ * file stops being exactly Established / Startup / Frontier.
  */
 
 import rawPicks from "@/content/market-picks.weekly.json";
-import { SEED_STORIES } from "@/lib/seed";
-import type { AnyStory } from "@/lib/types/story";
 
 export type MarketPickCategory = "established" | "startup" | "frontier";
+export type BuildDifficulty = "low" | "medium" | "high";
 
-export interface MarketPick {
-  category: MarketPickCategory;
-  storyId: string;
-  label: string;
-  companyName: string;
-  headline: string;
-  businessPattern: string;
-  whyThisWeek: string;
-  copyablePrompt: string;
-  story: AnyStory;
+export interface RecommendedTwist {
+  id: string;
+  title: string;
+  simpleDescription: string;
+  targetUser: string;
+  gapItUses: string;
+  whyThisTwistCanWin: string;
+  landingPageAngle: string;
 }
 
-type RawMarketPick = {
-  category?: unknown;
-  storyId?: unknown;
-  label?: unknown;
-  companyName?: unknown;
-  headline?: unknown;
-  businessPattern?: unknown;
-  whyThisWeek?: unknown;
-  copyablePrompt?: unknown;
-};
+export interface MarketPickRecipe {
+  landingPageSections: string[];
+  waitlistOffer: string;
+  aiBuildPrompt: string;
+  validationPlan: string[];
+  whatNotToBuildYet: string[];
+  skillFiles: string[];
+}
+
+export interface MarketPick {
+  id: string;
+  category: MarketPickCategory;
+  sourceCompany: string;
+  sourcePattern: string;
+  simpleExplanation: string;
+  whyPeoplePay: string;
+  marketGap: string;
+  copyableMechanic: string;
+  smallerVersion: string;
+  whatNotToCopy: string;
+  locationLabel: string;
+  signalLabel: string;
+  confidenceScore: number;
+  buildDifficulty: BuildDifficulty;
+  recommendedTwists: RecommendedTwist[];
+  recipe: MarketPickRecipe;
+}
+
+type RawMarketPick = Record<string, unknown>;
 
 const REQUIRED_CATEGORIES: readonly MarketPickCategory[] = [
   "established",
   "startup",
   "frontier",
 ];
+
+const SKILL_FILE_PREFIX = "content/skill-files/";
 
 export function getWeeklyMarketPicks(): readonly MarketPick[] {
   return WEEKLY_MARKET_PICKS;
@@ -58,8 +76,6 @@ export function validateMarketPicks(input: unknown): MarketPick[] {
   }
 
   const seen = new Set<MarketPickCategory>();
-  const storiesById = new Map(SEED_STORIES.map((story) => [story.id, story]));
-
   const picks = input.map((entry, index) => {
     if (!isRecord(entry)) {
       throw new Error(`[market-picks] pick ${index + 1} must be an object`);
@@ -71,24 +87,34 @@ export function validateMarketPicks(input: unknown): MarketPick[] {
     }
     seen.add(category);
 
-    const storyId = readString(raw.storyId, "storyId", index);
-    const story = storiesById.get(storyId);
-    if (!story) {
-      throw new Error(
-        `[market-picks] pick ${index + 1} references unknown storyId "${storyId}"`,
-      );
-    }
+    const recommendedTwists = readTwists(raw.recommendedTwists, index);
+    const recipe = readRecipe(raw.recipe, index);
 
     return {
+      id: readString(raw.id, "id", index),
       category,
-      storyId,
-      label: readString(raw.label, "label", index),
-      companyName: readString(raw.companyName, "companyName", index),
-      headline: readString(raw.headline, "headline", index),
-      businessPattern: readString(raw.businessPattern, "businessPattern", index),
-      whyThisWeek: readString(raw.whyThisWeek, "whyThisWeek", index),
-      copyablePrompt: readString(raw.copyablePrompt, "copyablePrompt", index),
-      story,
+      sourceCompany: readString(raw.sourceCompany, "sourceCompany", index),
+      sourcePattern: readString(raw.sourcePattern, "sourcePattern", index),
+      simpleExplanation: readString(
+        raw.simpleExplanation,
+        "simpleExplanation",
+        index,
+      ),
+      whyPeoplePay: readString(raw.whyPeoplePay, "whyPeoplePay", index),
+      marketGap: readString(raw.marketGap, "marketGap", index),
+      copyableMechanic: readString(
+        raw.copyableMechanic,
+        "copyableMechanic",
+        index,
+      ),
+      smallerVersion: readString(raw.smallerVersion, "smallerVersion", index),
+      whatNotToCopy: readString(raw.whatNotToCopy, "whatNotToCopy", index),
+      locationLabel: readString(raw.locationLabel, "locationLabel", index),
+      signalLabel: readString(raw.signalLabel, "signalLabel", index),
+      confidenceScore: readScore(raw.confidenceScore, index),
+      buildDifficulty: readDifficulty(raw.buildDifficulty, index),
+      recommendedTwists,
+      recipe,
     };
   });
 
@@ -118,6 +144,112 @@ function readCategory(value: unknown, index: number): MarketPickCategory {
   throw new Error(
     `[market-picks] pick ${index + 1} category must be established, startup, or frontier`,
   );
+}
+
+function readDifficulty(value: unknown, index: number): BuildDifficulty {
+  if (value === "low" || value === "medium" || value === "high") {
+    return value;
+  }
+  throw new Error(
+    `[market-picks] pick ${index + 1} buildDifficulty must be low, medium, or high`,
+  );
+}
+
+function readScore(value: unknown, index: number): number {
+  if (typeof value !== "number" || value < 0 || value > 100) {
+    throw new Error(
+      `[market-picks] pick ${index + 1} confidenceScore must be 0-100`,
+    );
+  }
+  return value;
+}
+
+function readTwists(value: unknown, pickIndex: number): RecommendedTwist[] {
+  if (!Array.isArray(value) || value.length < 3) {
+    throw new Error(
+      `[market-picks] pick ${pickIndex + 1} must include at least 3 recommendedTwists`,
+    );
+  }
+  return value.map((entry, twistIndex) => {
+    if (!isRecord(entry)) {
+      throw new Error(
+        `[market-picks] pick ${pickIndex + 1} twist ${twistIndex + 1} must be an object`,
+      );
+    }
+    return {
+      id: readString(entry.id, "recommendedTwists.id", pickIndex),
+      title: readString(entry.title, "recommendedTwists.title", pickIndex),
+      simpleDescription: readString(
+        entry.simpleDescription,
+        "recommendedTwists.simpleDescription",
+        pickIndex,
+      ),
+      targetUser: readString(
+        entry.targetUser,
+        "recommendedTwists.targetUser",
+        pickIndex,
+      ),
+      gapItUses: readString(
+        entry.gapItUses,
+        "recommendedTwists.gapItUses",
+        pickIndex,
+      ),
+      whyThisTwistCanWin: readString(
+        entry.whyThisTwistCanWin,
+        "recommendedTwists.whyThisTwistCanWin",
+        pickIndex,
+      ),
+      landingPageAngle: readString(
+        entry.landingPageAngle,
+        "recommendedTwists.landingPageAngle",
+        pickIndex,
+      ),
+    };
+  });
+}
+
+function readRecipe(value: unknown, index: number): MarketPickRecipe {
+  if (!isRecord(value)) {
+    throw new Error(`[market-picks] pick ${index + 1} recipe must be an object`);
+  }
+  const skillFiles = readStringArray(value.skillFiles, "skillFiles", index);
+  for (const file of skillFiles) {
+    if (!file.startsWith(SKILL_FILE_PREFIX) || !file.endsWith(".md")) {
+      throw new Error(
+        `[market-picks] pick ${index + 1} skillFiles must point to content/skill-files/*.md`,
+      );
+    }
+  }
+  return {
+    landingPageSections: readStringArray(
+      value.landingPageSections,
+      "landingPageSections",
+      index,
+    ),
+    waitlistOffer: readString(value.waitlistOffer, "waitlistOffer", index),
+    aiBuildPrompt: readString(value.aiBuildPrompt, "aiBuildPrompt", index),
+    validationPlan: readStringArray(value.validationPlan, "validationPlan", index),
+    whatNotToBuildYet: readStringArray(
+      value.whatNotToBuildYet,
+      "whatNotToBuildYet",
+      index,
+    ),
+    skillFiles,
+  };
+}
+
+function readStringArray(value: unknown, field: string, index: number): string[] {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error(`[market-picks] pick ${index + 1} missing ${field}`);
+  }
+  return value.map((item, itemIndex) => {
+    if (typeof item !== "string" || item.trim().length === 0) {
+      throw new Error(
+        `[market-picks] pick ${index + 1} ${field}[${itemIndex}] must be a non-empty string`,
+      );
+    }
+    return item.trim();
+  });
 }
 
 function readString(value: unknown, field: string, index: number): string {

@@ -37,9 +37,10 @@ describe("HomeClient - MVP homepage loop", () => {
     const { container } = render(<HomeClient {...ALL_PROPS} />);
     const hero = container.querySelector("[data-home-hero-copy]")!;
 
-    expect(hero.textContent).toContain("Study 3 proven businesses");
-    expect(hero.textContent).toContain("personal twist");
-    expect(hero.textContent).toContain("48-hour validation plan");
+    expect(hero.textContent).toContain("Find a business idea worth copying");
+    expect(hero.textContent).toContain("Pick your twist");
+    expect(hero.textContent).toContain("waitlist");
+    expect(hero.textContent).toContain("48-hour validation");
   });
 
   test("renders exactly three weekly market pick cards", () => {
@@ -59,14 +60,21 @@ describe("HomeClient - MVP homepage loop", () => {
     const inline = container.querySelector("[data-weekly-recipe-inline]");
 
     expect(inline).not.toBeNull();
+    expect(container.textContent).toContain("3 ideas worth copying this week");
+    expect(container.textContent).toContain("Pick a twist");
+    expect(container.textContent).toContain("waitlist");
+    expect(container.textContent).toContain("48-hour validation");
     const labels = Array.from(inline!.querySelectorAll("[data-dotted-text]"))
       .map((node) => node.getAttribute("data-dotted-text-content"));
-    expect(labels).toContain("SOURCE PATTERN");
-    expect(labels).toContain("WHY THIS BUSINESS WORKS");
-    expect(labels).toContain("RECOMMENDED PODS");
-    expect(labels).toContain("LANDING PAGE FORMULA");
+    expect(labels).toContain("THIS BUSINESS WORKS");
+    expect(labels).toContain("WHY THIS IS WORTH TESTING");
+    expect(labels).toContain("HERE IS THE GAP");
+    expect(labels).toContain("WHAT NOT TO COPY");
+    expect(labels).toContain("PICK A TWIST");
+    expect(labels).toContain("GET THE WAITLIST PAGE");
+    expect(labels).toContain("WHAT TO LAUNCH FIRST");
     expect(labels).toContain("AI BUILD PROMPT");
-    expect(labels).toContain("48-HOUR VALIDATION PLAN");
+    expect(labels).toContain("48-HOUR VALIDATION");
     expect(labels).toContain("WHAT NOT TO BUILD YET");
   });
 
@@ -77,6 +85,21 @@ describe("HomeClient - MVP homepage loop", () => {
     fireEvent.click(cta);
 
     expect(container.querySelector("[data-recipe-sheet]")).not.toBeNull();
+  });
+
+  test("selecting a different twist changes the waitlist recipe", () => {
+    const { container } = render(<HomeClient {...ALL_PROPS} />);
+    const twistOptions = container.querySelectorAll("[data-twist-option]");
+
+    expect(container.textContent).toContain(
+      "Finish the first care-plan draft without staring at a blank page.",
+    );
+
+    fireEvent.click(twistOptions[1]);
+
+    expect(container.textContent).toContain(
+      "Turn messy intake notes into a clean first client summary.",
+    );
   });
 
   test("secondary signals are below the main weekly loop", () => {

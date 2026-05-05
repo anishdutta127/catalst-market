@@ -28,15 +28,15 @@ export function WeeklyMarketPicks({ picks }: WeeklyMarketPicksProps) {
       <div className="mb-4 md:mb-5 flex flex-col gap-2">
         <h2 id="weekly-market-picks-heading" className="leading-none">
           <DottedText
-            text="3 weekly dispatches"
+            text="3 ideas worth copying this week"
             dotSize={1.5}
             color="var(--color-pen)"
-            ariaLabel="3 weekly dispatches"
+            ariaLabel="3 ideas worth copying this week"
           />
         </h2>
         <p className="font-serif text-ink leading-tight max-w-2xl text-[1.375rem] md:text-[2rem]">
-          Pick the business pattern that fits your edge. The recipe below is
-          the payoff.
+          3 ideas worth copying this week. See what is working. Pick a twist.
+          Get the waitlist page to test it.
         </p>
       </div>
 

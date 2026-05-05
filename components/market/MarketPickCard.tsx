@@ -32,7 +32,7 @@ export function MarketPickCard({
           onSelect(pick);
         }
       }}
-      aria-label={`Select recipe for ${pick.companyName}`}
+      aria-label={`Select waitlist idea for ${pick.sourcePattern}`}
       aria-pressed={selected}
       className={[
         "group bg-card border rounded-lg overflow-hidden transition-[box-shadow,border-color] duration-300",
@@ -46,19 +46,19 @@ export function MarketPickCard({
           <div className="flex flex-col gap-1">
             <span className="inline-flex items-center">
               <DottedText
-                text={pick.label}
+                text={pick.category}
                 dotSize={1.25}
                 color="var(--color-pen)"
-                ariaLabel={pick.label}
+                ariaLabel={pick.category}
               />
             </span>
             {selected && (
               <span className="inline-flex items-center">
                 <DottedText
-                  text="Selected recipe"
+                  text="Selected idea"
                   dotSize={1}
                   color="var(--color-cta)"
-                  ariaLabel="Selected recipe"
+                  ariaLabel="Selected idea"
                 />
               </span>
             )}
@@ -77,7 +77,7 @@ export function MarketPickCard({
             letterSpacing: "-0.02em",
           }}
         >
-          {pick.companyName}
+          {pick.sourceCompany}
         </p>
       </div>
 
@@ -89,11 +89,19 @@ export function MarketPickCard({
             fontVariationSettings: "'opsz' 48",
           }}
         >
-          {pick.headline}
+          {pick.sourcePattern}
         </h3>
         <p className="text-[14px] md:text-[15px] leading-relaxed text-pen">
-          {pick.businessPattern}
+          {pick.smallerVersion}
         </p>
+        <div className="grid grid-cols-2 gap-2 text-[12px] text-pen">
+          <span className="border border-rule bg-paper px-2 py-1">
+            {pick.signalLabel}
+          </span>
+          <span className="border border-rule bg-paper px-2 py-1">
+            {pick.buildDifficulty}
+          </span>
+        </div>
         <Button
           variant="secondary"
           size="sm"
@@ -103,7 +111,7 @@ export function MarketPickCard({
             onOpenRecipe(pick);
           }}
         >
-          Read full recipe
+          Get the waitlist page
         </Button>
       </div>
     </article>

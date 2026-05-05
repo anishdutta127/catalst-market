@@ -28,7 +28,7 @@ describe("MVP homepage pixel/editorial contract", () => {
 
     expect(label).not.toBeNull();
     expect(label!.getAttribute("data-dotted-text-content")).toBe(
-      "WEEKLY RECIPES",
+      "48 HOUR TEST",
     );
   });
 
