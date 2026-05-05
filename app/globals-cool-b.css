@@ -1,0 +1,45 @@
+/*
+ * Catalst Market — CANDIDATE B token override (Glacier & Pulse)
+ *
+ * EXPLORATORY. Imported only by app/(internal)/primitives-cool-b/page.tsx.
+ * Source-of-truth: design-system/MASTER.cool-candidate-B.md.
+ */
+
+:root {
+  /* Base palette — Candidate B §2 */
+  --color-ink: #0F1620;
+  --color-pen: #3F4858;
+  --color-cta: #E61F65;
+  --color-paper: #EEF1F6;
+  --color-card: #FFFFFF;
+  --color-text: #11192A;
+  --color-rule: #D7DEE8;
+
+  /* Mood-lens tints — Candidate B §2 */
+  --mood-ember: #D8542A;
+  --mood-ember-ink: var(--color-ink);
+  --mood-moss: #2D7656;
+  --mood-moss-ink: #FFFFFF;
+  --mood-brass: #A8923A;
+  --mood-brass-ink: var(--color-ink);
+  --mood-cobalt: #2C4FC0;
+  --mood-cobalt-ink: #FFFFFF;
+  --mood-slate-sage: #5C6878;
+  --mood-slate-sage-ink: #FFFFFF;
+  --mood-lemon: #E0C42A;
+  --mood-lemon-ink: var(--color-ink);
+  --mood-rose-clay: #B25470;
+  --mood-rose-clay-ink: #FFFFFF;
+  --mood-olive-gold: #6E6E32;
+  --mood-olive-gold-ink: #FFFFFF;
+  --mood-saffron: #CE6B17;
+  --mood-saffron-ink: var(--color-ink);
+}
+
+.glass-chrome {
+  background: rgba(238, 241, 246, 0.72);
+}
+.glass-floating {
+  background: rgba(238, 241, 246, 0.85);
+}
+/* glass-toast unchanged. */

@@ -1,0 +1,155 @@
+"use client";
+
+import { useState } from "react";
+import { DottedText } from "@/components/brand/DottedText";
+import { GlobeHero } from "@/components/feed/GlobeHero";
+import { SectionCaption } from "@/components/feed/SectionCaption";
+import { WeeklyMarketPicks } from "@/components/market/WeeklyMarketPicks";
+import { StoryCard } from "@/components/story/StoryCard";
+import type { MarketPick } from "@/lib/market-picks";
+import type { AnyStory } from "@/lib/types/story";
+
+export interface HomeClientProps {
+  stories: AnyStory[];
+  top3: AnyStory[];
+  weeklyMarketPicks?: readonly MarketPick[];
+}
+
+export function HomeClient({
+  stories,
+  top3,
+  weeklyMarketPicks,
+}: HomeClientProps) {
+  const [expandedSignalIdx, setExpandedSignalIdx] = useState<number | null>(null);
+
+  return (
+    <div data-home="" className="min-h-screen bg-paper text-text font-sans">
+      <Header />
+
+      <main className="max-w-[1120px] mx-auto px-4 md:px-6 pb-20">
+        <HeroCopy />
+
+        <section
+          data-home-globe=""
+          aria-label="Catalst Market globe"
+          className="mt-6 md:mt-8 flex justify-center"
+        >
+          <GlobeHero stories={stories} showHeadline={false} />
+        </section>
+
+        {weeklyMarketPicks && weeklyMarketPicks.length > 0 && (
+          <div data-home-weekly-picks="" className="mt-8 md:mt-12">
+            <WeeklyMarketPicks picks={weeklyMarketPicks} />
+          </div>
+        )}
+
+        <section
+          data-more-market-signals=""
+          aria-labelledby="more-market-signals-heading"
+          className="mt-12 md:mt-16 border-t border-rule pt-8 md:pt-10"
+        >
+          <SectionCaption
+            id="more-market-signals-heading"
+            text="More market signals"
+          />
+          <p className="text-[15px] leading-relaxed text-pen max-w-2xl mb-4">
+            A quieter shelf of live and seed signals for later. The main loop
+            this week is the three businesses above.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+            {top3.map((story, index) => (
+              <StoryCard
+                key={story.id}
+                story={story}
+                expanded={expandedSignalIdx === index}
+                variant={
+                  expandedSignalIdx !== null && expandedSignalIdx !== index
+                    ? "compact"
+                    : "default"
+                }
+                onExpandChange={(next) =>
+                  setExpandedSignalIdx(next ? index : null)
+                }
+                onBuild={(storyId) =>
+                  console.log(
+                    `[HomeClient] Build with Catalst on ${storyId} — RecipeSheet flow owns the homepage MVP.`,
+                  )
+                }
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <header
+      data-home-header=""
+      className="max-w-[1120px] mx-auto px-4 md:px-6 pt-4 pb-2 flex items-center justify-between gap-3"
+    >
+      <a
+        href="/"
+        className="font-serif font-bold text-ink leading-none cursor-pointer"
+        style={{
+          fontSize: "clamp(15px, 2vw, 18px)",
+          fontVariationSettings: "'opsz' 24",
+          letterSpacing: "-0.02em",
+        }}
+        aria-label="Catalst Market home"
+      >
+        <span className="hidden md:inline">CATALST&nbsp;MARKET</span>
+        <span className="md:hidden">CATALST</span>
+      </a>
+      <div className="inline-flex items-center gap-2 h-8 px-3 rounded-pill bg-card border border-rule shrink-0">
+        <span
+          aria-hidden="true"
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: 999,
+            background: "var(--color-cta)",
+          }}
+        />
+        <DottedText
+          text="WEEKLY LOOP"
+          dotSize={1.1}
+          color="var(--color-ink)"
+          ariaLabel="Weekly loop"
+        />
+      </div>
+    </header>
+  );
+}
+
+function HeroCopy() {
+  return (
+    <section data-home-hero-copy="" className="pt-10 md:pt-16 text-center">
+      <p className="inline-flex items-center justify-center">
+        <DottedText
+          text="Study. Choose a POD. Build."
+          dotSize={1.4}
+          color="var(--color-pen)"
+          ariaLabel="Study. Choose a POD. Build."
+        />
+      </p>
+      <h1
+        className="mt-4 mx-auto max-w-4xl font-serif font-semibold text-ink leading-[0.95]"
+        style={{
+          fontSize: "clamp(3rem, 10vw, 6.75rem)",
+          fontVariationSettings: "'opsz' 144",
+          letterSpacing: "-0.025em",
+        }}
+      >
+        Three businesses of the week, turned into buildable recipes.
+      </h1>
+      <p className="mt-5 mx-auto max-w-2xl text-[16px] md:text-[18px] leading-relaxed text-pen">
+        Catalst Market helps non-technical builders study what is working,
+        choose a POD, and turn one pattern into a landing page, AI build
+        prompt, and 48-hour validation plan.
+      </p>
+    </section>
+  );
+}

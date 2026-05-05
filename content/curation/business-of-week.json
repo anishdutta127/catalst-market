@@ -1,0 +1,19 @@
+{
+  "companyId": "sarvam-ai",
+  "companyName": "Sarvam AI",
+  "tagline": "An open-weight language stack for India, built in India.",
+  "weeklyArc": [
+    "Sarvam shipped Sarvam-9B-IL this week — an Apache-2.0 model that beats GPT-class systems on nine Indian languages by 22 points on IndicGenBench, runs on a consumer 4090, and was trained with no Western capital. It is the first time an Indian lab has set a credible frontier number on its own benchmark, on its own infrastructure, on its own license.",
+    "The team — ex-Google Research and IIT-Madras founders — has held its valuation discipline through the AI hype cycle, raising at price points that look modest next to US labs. The bet has been that an Indian-language frontier model is a category that the global labs will not prioritise quickly enough; the 22-point gap is the proof.",
+    "The release matters less for the benchmark than for what it unlocks downstream: every domestic SaaS team that ships in Hindi, Tamil, Marathi, or Bengali now has a self-hostable, license-clean alternative to commercial APIs. A year from now, the visible second-order companies — vernacular voice, regional commerce, tier-2 productivity — will all cite this week as the unblock."
+  ],
+  "keyStats": [
+    { "label": "Founded", "value": "2023" },
+    { "label": "Stage", "value": "Series A" },
+    { "label": "Raised", "value": "$54M" }
+  ],
+  "externalUrl": "https://sarvam.ai",
+  "pullQuote": "An Indian-language frontier model on Apache-2.0 is the unblock the rest of the country has been waiting for. The visible second-order companies will all cite this week.",
+  "relatedBuildAngleId": "angle-domain-ux-over-the-raw-model",
+  "primaryMoodForTint": "quiet-builders"
+}

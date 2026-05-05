@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* ─── Catalst Market design tokens — see design-system/MASTER.md ─── */
+
+:root {
+  /* Base palette — MASTER §3 */
+  --color-ink: #0B0B0F;
+  --color-pen: #3A3A44;
+  --color-cta: #FF4D4D;
+  --color-paper: #FAF7F2;
+  --color-card: #FFFFFF;
+  --color-text: #0F0F14;
+  --color-rule: #E6E2D9;
+
+  /* Phase 7c — DEV-only "live" indicator color. Verdant green carries
+     no production meaning; it's intentionally OFF the mood/brand
+     palette so it doesn't accidentally creep into a real surface. */
+  --color-verdant: #7fb069;
+
+  /* Mood-lens tints — MASTER §3.
+     Ember reasoning: pushed off red toward true orange to keep hue
+     separation from --color-cta in one-second scans. */
+  --mood-ember: #F26B22;
+  --mood-ember-ink: var(--color-ink);
+  --mood-moss: #3F8F5C;
+  --mood-moss-ink: #FFFFFF;
+  --mood-brass: #C9A24A;
+  --mood-brass-ink: var(--color-ink);
+  --mood-cobalt: #2A5BD7;
+  --mood-cobalt-ink: #FFFFFF;
+  --mood-slate-sage: #6E7A6A;
+  --mood-slate-sage-ink: #FFFFFF;
+  --mood-lemon: #F2D544;
+  --mood-lemon-ink: var(--color-ink);
+  --mood-rose-clay: #D86A7A;
+  --mood-rose-clay-ink: #FFFFFF;
+  --mood-olive-gold: #8A7E2C;
+  --mood-olive-gold-ink: #FFFFFF;
+  --mood-saffron: #E07B1B;
+  --mood-saffron-ink: var(--color-ink);
+
+  /* Spacing — MASTER §5 (4px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius — MASTER §5 */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Shadow — MASTER §5 */
+  --shadow-card: 0 1px 2px rgba(11, 11, 15, 0.04), 0 4px 16px rgba(11, 11, 15, 0.06);
+  --shadow-card-hover: 0 4px 8px rgba(11, 11, 15, 0.06), 0 12px 32px rgba(11, 11, 15, 0.10);
+  --shadow-sheet: 0 -8px 32px rgba(11, 11, 15, 0.12);
+  --shadow-toast: 0 8px 24px rgba(11, 11, 15, 0.14);
+}
+
+/* ─── Glass utilities — MASTER §5. Floating chrome only. ─── */
+
+.glass-chrome {
+  background: rgba(250, 247, 242, 0.72);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(11, 11, 15, 0.06);
+}
+
+.glass-floating {
+  background: rgba(250, 247, 242, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-toast {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-chrome,
+  .glass-floating,
+  .glass-toast {
+    background: var(--color-card);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-rule);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ─── Reduced motion — MASTER §6 + §11 ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Disable transforms (CTA pulse, streak pulse, card press) */
+  *,
+  *::before,
+  *::after {
+    transform: none !important;
+  }
+  /* Sheet slide → fade per MASTER §6 */
+  [data-sheet],
+  [data-modal] {
+    transition: opacity 200ms ease !important;
+  }
+}
+
+/* ─── Tap-pulse — Build CTA only (MASTER §6).
+       Reduced motion is handled by the rule above — `transform: none !important`
+       overrides the keyframes' transform, so this no-ops automatically. ─── */
+
+@keyframes catalst-tap-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.btn-tap-pulse:active {
+  animation: catalst-tap-pulse 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ─── Globe ambient wobble — feed.md §7.1 (live variant only).
+       ±4° rotateY over 12s ease-in-out. Reduced motion is handled by the
+       global rule above (animation-duration → 0.01ms) — this no-ops there. ─── */
+
+@keyframes catalst-globe-wobble {
+  0%, 100% { transform: rotateY(-4deg); }
+  50%      { transform: rotateY(4deg); }
+}
+
+.catalst-globe-wobble {
+  animation: catalst-globe-wobble 12s ease-in-out infinite;
+  transform-style: preserve-3d;
+  transform-box: fill-box;
+}
+
+/* ─── Live Signals pulse — single Coral dot indicator that the feed
+       is "alive." Reduced motion is handled by the global rule above. ─── */
+
+@keyframes catalst-live-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+/* ─── Card pulse — one-shot brightness flash when the globe narrative
+       reaches a city matching a top-3 card. Used by app/page-client.tsx
+       PulseWrapper. Single iteration, no loop. ─── */
+
+@keyframes catalst-card-pulse {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.08); transform: translateY(-2px); }
+}
+
+/* ─── Filter palette fade-in — opacity-only crossfade so reduced-motion
+       handling falls through cleanly via the global rule. 160ms ease-out. ─── */
+
+@keyframes catalst-palette-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Body — paper background, ink text, Geist body, OpenType on ─── */
+
+body {
+  background: var(--color-paper);
+  color: var(--color-text);
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}

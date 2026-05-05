@@ -1,0 +1,553 @@
+[
+  {
+    "id": "zepto-series-f-2026",
+    "type": "funding",
+    "title": "Zepto raises $500M Series F at $5B",
+    "headlineNumber": { "value": 500, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "10-min grocery — order to door before the kettle finishes",
+      "$5B post-money. India's most valuable consumer commerce co",
+      "Profitable per-order across 30+ Indian cities now"
+    ],
+    "whyNow": "Quick commerce just stopped bleeding cash. The category is real.",
+    "primaryMood": "bootstrapped-millions",
+    "moods": ["bootstrapped-millions", "india-shipping", "blowing-up"],
+    "stage": "empires",
+    "industry": "commerce",
+    "region": "india",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-05-03T08:00:00Z",
+    "lat": 12.97,
+    "lng": 77.59,
+    "featured": true,
+    "details": {
+      "amountUsd": 500000000,
+      "round": "Series F",
+      "investors": ["General Catalyst", "Avenir Growth", "Glade Brook"],
+      "valuation": 5000000000,
+      "leadInvestor": "General Catalyst"
+    }
+  },
+  {
+    "id": "sarvam-ai-multilingual-launch",
+    "type": "ai",
+    "title": "Sarvam ships open-weight Indian language model",
+    "headlineNumber": { "value": 22, "unit": "pts", "format": "plain" },
+    "microBullets": [
+      "Beats GPT-class models on 9 Indian languages by 22 points",
+      "8B params. Apache 2.0. Runs on a 4090",
+      "Built by ex-Google Research and IIT-M founders, no Western capital"
+    ],
+    "whyNow": "First serious open-weight model purpose-built for Indian languages.",
+    "primaryMood": "quiet-builders",
+    "moods": ["quiet-builders", "india-shipping", "underdog-wins"],
+    "stage": "builders",
+    "industry": "ai",
+    "region": "india",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-05-02T11:30:00Z",
+    "lat": 12.97,
+    "lng": 77.59,
+    "featured": true,
+    "details": {
+      "modelName": "Sarvam-9B-IL",
+      "benchmark": "IndicGenBench",
+      "benchmarkGain": 22,
+      "weightsLicense": "Apache-2.0",
+      "productUrl": "https://sarvam.ai/models/9b"
+    }
+  },
+  {
+    "id": "razorpay-200m-arr",
+    "type": "milestone",
+    "title": "Razorpay crosses $200M ARR",
+    "headlineNumber": { "value": 200, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "$200M ARR. Up 80% YoY",
+      "Powering payments for 12M merchants across India",
+      "Net retention 130%+. Profitable since Q3 2025"
+    ],
+    "whyNow": "Indian fintech infra is finally a real business, not a subsidy game.",
+    "primaryMood": "india-shipping",
+    "moods": ["india-shipping", "bootstrapped-millions", "quiet-builders"],
+    "stage": "empires",
+    "industry": "fintech",
+    "region": "india",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-05-02T07:15:00Z",
+    "lat": 12.97,
+    "lng": 77.59,
+    "featured": true,
+    "details": {
+      "metric": "ARR"
+    }
+  },
+  {
+    "id": "cred-commerce-sdk",
+    "type": "os",
+    "title": "Cred releases open-source commerce SDK",
+    "headlineNumber": { "value": 8400, "unit": "★", "format": "plain" },
+    "microBullets": [
+      "Drop-in checkout SDK — UPI, cards, BNPL, all in 12 lines",
+      "8.4k stars in 4 days. Trending #1 on GitHub India",
+      "MIT licensed. No Cred lock-in. Works against any PSP"
+    ],
+    "whyNow": "Cred giving away its checkout stack — the same stack that converts at 92% — for free.",
+    "primaryMood": "copy-able-ideas",
+    "moods": ["copy-able-ideas", "india-shipping", "founders-like-me"],
+    "stage": "empires",
+    "industry": "devtools",
+    "region": "india",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-05-01T14:00:00Z",
+    "lat": 12.97,
+    "lng": 77.59,
+    "featured": true,
+    "details": {
+      "repoUrl": "https://github.com/cred/commerce-sdk",
+      "stars": 8400,
+      "language": "TypeScript",
+      "license": "MIT"
+    }
+  },
+  {
+    "id": "phonepe-ipo-filing",
+    "type": "ipo",
+    "title": "PhonePe files for $15B IPO on NSE",
+    "headlineNumber": { "value": 15, "unit": "B", "format": "currency" },
+    "microBullets": [
+      "$15B target valuation. Largest tech IPO in India ever",
+      "$1.4B revenue, growing 60% YoY. EBITDA-positive last 3 quarters",
+      "Lead bookrunners: Kotak, Morgan Stanley, JP Morgan"
+    ],
+    "whyNow": "First mega-cap consumer fintech IPO from India since Paytm. Sets the comp.",
+    "primaryMood": "big-money-moves",
+    "moods": ["big-money-moves", "india-shipping", "blowing-up"],
+    "stage": "empires",
+    "industry": "fintech",
+    "region": "india",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-30T10:00:00Z",
+    "lat": 12.97,
+    "lng": 77.59,
+    "featured": true,
+    "details": {
+      "ticker": "PHONEPE",
+      "exchange": "NSE",
+      "marketCapUsd": 15000000000
+    }
+  },
+  {
+    "id": "cursor-series-c-2026",
+    "type": "funding",
+    "title": "Cursor raises $900M Series C at $9B",
+    "headlineNumber": { "value": 900, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "$300M ARR, doubled in 4 months. Used by 1.2M devs daily",
+      "Lead: Thrive at $9B post. Sequoia, Andreessen back-load",
+      "VS Code fork strategy actually worked. The IDE wars are over"
+    ],
+    "whyNow": "AI-native IDE became the default in under 18 months. Wild.",
+    "primaryMood": "overnight-rockets",
+    "moods": ["overnight-rockets", "blowing-up", "founders-like-me"],
+    "stage": "empires",
+    "industry": "devtools",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-28T16:00:00Z",
+    "lat": 37.77,
+    "lng": -122.42,
+    "details": {
+      "amountUsd": 900000000,
+      "round": "Series C",
+      "investors": ["Thrive", "Sequoia", "Andreessen Horowitz"],
+      "valuation": 9000000000,
+      "leadInvestor": "Thrive"
+    }
+  },
+  {
+    "id": "anthropic-opus-47-launch",
+    "type": "launch",
+    "title": "Anthropic ships Claude Opus 4.7 with 1M context",
+    "headlineNumber": null,
+    "microBullets": [
+      "1M context window. State of the art on SWE-bench Verified",
+      "Available in Claude Code, API, and Bedrock day one",
+      "Pricing held flat from 4.6 — bigger model, same dollar"
+    ],
+    "whyNow": "Frontier model that holds an entire mid-size codebase in context. Software development changes.",
+    "primaryMood": "blowing-up",
+    "moods": ["blowing-up", "overnight-rockets"],
+    "stage": "empires",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-26T17:00:00Z",
+    "lat": 37.77,
+    "lng": -122.42,
+    "details": {
+      "productName": "Claude Opus 4.7",
+      "productUrl": "https://anthropic.com/news/opus-4-7",
+      "launchPlatform": "direct"
+    }
+  },
+  {
+    "id": "thinking-machines-emerges",
+    "type": "founder",
+    "title": "Mira Murati's Thinking Machines emerges",
+    "headlineNumber": null,
+    "microBullets": [
+      "Stealth lab uncloaks. 60-person team, ex-OpenAI majority",
+      "First product: 'multimodal reasoning agent for scientific work'",
+      "$1B seed round closed Q4 2025. No model demo yet"
+    ],
+    "whyNow": "The biggest stealth lab of 2025 finally talks. Sets the bar for what 'lab as company' means in 2026.",
+    "primaryMood": "founders-like-me",
+    "moods": ["founders-like-me", "quiet-builders"],
+    "stage": "builders",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-22T09:00:00Z",
+    "lat": 37.77,
+    "lng": -122.42,
+    "details": {
+      "founderName": "Mira Murati"
+    }
+  },
+  {
+    "id": "anduril-pentagon-2b",
+    "type": "funding",
+    "title": "Anduril wins $2B Pentagon autonomous systems contract",
+    "headlineNumber": { "value": 2, "unit": "B", "format": "currency" },
+    "microBullets": [
+      "5-year DoD contract. Replaces 3 incumbent primes",
+      "Covers Lattice OS rollout across all branches",
+      "Anduril's annualized federal revenue now ~$3B"
+    ],
+    "whyNow": "Defense tech upstart eating Lockheed's lunch. The Valley's defense bet pays.",
+    "primaryMood": "big-money-moves",
+    "moods": ["big-money-moves", "blowing-up"],
+    "stage": "empires",
+    "industry": "defense",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-19T13:00:00Z",
+    "lat": 34.05,
+    "lng": -118.24,
+    "details": {
+      "amountUsd": 2000000000,
+      "round": "Government Contract",
+      "investors": ["U.S. Department of Defense"]
+    }
+  },
+  {
+    "id": "cohere-replit-acquihire",
+    "type": "ma",
+    "title": "Cohere acqui-hires Replit AI agents team",
+    "headlineNumber": null,
+    "microBullets": [
+      "9 engineers + 2 founders join Cohere's enterprise agents group",
+      "Replit keeps the IP. Cohere gets the talent and a partnership",
+      "Quiet deal — no deal value disclosed, ~$60M signal estimate"
+    ],
+    "whyNow": "AI agents talent is now the scarcest resource. Acqui-hires are how you fix that.",
+    "primaryMood": "founders-like-me",
+    "moods": ["founders-like-me", "quiet-builders"],
+    "stage": "empires",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-15T11:00:00Z",
+    "lat": 40.71,
+    "lng": -74.01,
+    "details": {
+      "acquirer": "Cohere",
+      "acquired": "Replit Agents Team",
+      "dealType": "acquihire"
+    }
+  },
+  {
+    "id": "mistral-multimodal-le-chat",
+    "type": "ai",
+    "title": "Mistral ships multimodal Le Chat",
+    "headlineNumber": { "value": 18, "unit": "pts", "format": "plain" },
+    "microBullets": [
+      "+18 pts on MMMU vs Mistral Large 2. Free tier handles vision",
+      "European AI sovereignty narrative working — DGAC, BNP using it",
+      "Open weights for the 22B variant. Pixtral lineage shows"
+    ],
+    "whyNow": "Europe's frontier-lab-of-one keeps pace with US labs at half the burn.",
+    "primaryMood": "overnight-rockets",
+    "moods": ["overnight-rockets", "underdog-wins"],
+    "stage": "empires",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-12T10:00:00Z",
+    "lat": 48.86,
+    "lng": 2.35,
+    "details": {
+      "modelName": "Le Chat Multimodal",
+      "benchmark": "MMMU",
+      "benchmarkGain": 18,
+      "weightsLicense": "Apache-2.0 (22B variant)"
+    }
+  },
+  {
+    "id": "klarna-ipo-20b",
+    "type": "ipo",
+    "title": "Klarna files for $20B IPO on NYSE",
+    "headlineNumber": { "value": 20, "unit": "B", "format": "currency" },
+    "microBullets": [
+      "$20B target. Down from $46B private peak in 2021",
+      "Profitable now — $1.2B net income last 12 months",
+      "BNPL category leader. Affirm comp at $13B"
+    ],
+    "whyNow": "First big BNPL public-market test since the rate-cycle reset. Sets the comp.",
+    "primaryMood": "big-money-moves",
+    "moods": ["big-money-moves", "blowing-up"],
+    "stage": "empires",
+    "industry": "fintech",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-08T14:00:00Z",
+    "lat": 59.33,
+    "lng": 18.06,
+    "details": {
+      "ticker": "KLAR",
+      "exchange": "NYSE",
+      "marketCapUsd": 20000000000
+    }
+  },
+  {
+    "id": "wayve-450m-series-c",
+    "type": "funding",
+    "title": "Wayve raises £450M Series C for autonomous driving",
+    "headlineNumber": { "value": 580, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "£450M (~$580M). Lead: SoftBank Vision. NVIDIA strategic",
+      "Ditched HD maps — model is end-to-end vision-to-action",
+      "First L4 deployment partnership with Nissan in Yokohama"
+    ],
+    "whyNow": "End-to-end-learned driving stack now the dominant approach. Mapping companies in trouble.",
+    "primaryMood": "copy-able-ideas",
+    "moods": ["copy-able-ideas", "quiet-builders"],
+    "stage": "builders",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-04-04T11:00:00Z",
+    "lat": 51.51,
+    "lng": -0.13,
+    "details": {
+      "amountUsd": 580000000,
+      "round": "Series C",
+      "investors": ["SoftBank Vision Fund", "NVIDIA", "Microsoft M12"],
+      "valuation": 4500000000,
+      "leadInvestor": "SoftBank Vision Fund"
+    }
+  },
+  {
+    "id": "builder-ai-shutdown",
+    "type": "shutdown",
+    "title": "Builder.ai files for administration",
+    "headlineNumber": { "value": 9, "unit": "yrs", "format": "plain" },
+    "microBullets": [
+      "9 years. $450M raised at $1B+ peak",
+      "Insolvent after 'AI' was largely Indian engineers, lawsuit pending",
+      "Largest stealth-tier failure of 2026 to date"
+    ],
+    "whyNow": "If your AI demo doesn't survive contact with a code review, you're the next Builder.ai.",
+    "primaryMood": "quiet-builders",
+    "moods": ["quiet-builders"],
+    "stage": "empires",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-28T09:00:00Z",
+    "lat": 51.51,
+    "lng": -0.13,
+    "details": {
+      "yearsOperating": 9,
+      "totalRaisedUsd": 450000000
+    }
+  },
+  {
+    "id": "bytedance-pico-layoff",
+    "type": "layoff",
+    "title": "ByteDance lays off 1,500 from Pico VR",
+    "headlineNumber": { "value": 1500, "unit": "people", "format": "plain" },
+    "microBullets": [
+      "1,500 cuts — 80% of Pico VR division",
+      "Consumer VR pivot scrapped. Team folds into Tiktok AR group",
+      "China VR market collapsed Q1 — Pico shipments down 67%"
+    ],
+    "whyNow": "Apple Vision Pro killed the consumer VR market. Pico was the canary.",
+    "primaryMood": "big-money-moves",
+    "moods": ["big-money-moves"],
+    "stage": "empires",
+    "industry": "consumer",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-22T07:00:00Z",
+    "lat": 39.90,
+    "lng": 116.41,
+    "details": {
+      "headcountAffected": 1500,
+      "percentOfWorkforce": 80
+    }
+  },
+  {
+    "id": "softbank-sakana-200m",
+    "type": "funding",
+    "title": "SoftBank leads $200M into Sakana AI",
+    "headlineNumber": { "value": 200, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "$200M Series B at $1.4B post. Sakana now Japan's most valuable AI startup",
+      "Evolutionary model-merging research, not yet another LLM lab",
+      "Founders David Ha and Llion Jones (Transformers paper co-author)"
+    ],
+    "whyNow": "Japanese AI sovereignty pillar. SoftBank doubling down at home.",
+    "primaryMood": "quiet-builders",
+    "moods": ["quiet-builders", "underdog-wins"],
+    "stage": "builders",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-18T13:00:00Z",
+    "lat": 35.68,
+    "lng": 139.69,
+    "details": {
+      "amountUsd": 200000000,
+      "round": "Series B",
+      "investors": ["SoftBank", "Khosla Ventures", "Lux Capital"],
+      "valuation": 1400000000,
+      "leadInvestor": "SoftBank"
+    }
+  },
+  {
+    "id": "sea-garena-spinoff",
+    "type": "ma",
+    "title": "Sea Group spins off Garena as standalone listing",
+    "headlineNumber": { "value": 6, "unit": "B", "format": "currency" },
+    "microBullets": [
+      "Garena valued ~$6B in spinoff. SGX primary listing",
+      "Free Fire still 800M MAU globally despite the China ban",
+      "Sea now pure-play e-commerce + Shopee Pay fintech"
+    ],
+    "whyNow": "First major Asia gaming-from-conglomerate carve-out since 2021. Comp matters.",
+    "primaryMood": "founders-like-me",
+    "moods": ["founders-like-me", "big-money-moves"],
+    "stage": "empires",
+    "industry": "creator",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-15T08:00:00Z",
+    "lat": 1.35,
+    "lng": 103.82,
+    "details": {
+      "acquirer": "Sea Group (parent)",
+      "acquired": "Garena",
+      "amountUsd": 6000000000,
+      "dealType": "merger"
+    }
+  },
+  {
+    "id": "nubank-q5-profitable",
+    "type": "milestone",
+    "title": "Nubank reports 5th consecutive profitable quarter",
+    "headlineNumber": { "value": 480, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "$480M net income. Q1 2026. ROE 30%+",
+      "108M customers across Brazil, Mexico, Colombia",
+      "Now LatAm's most valuable bank, ahead of Itaú by market cap"
+    ],
+    "whyNow": "Neobank thesis fully validated. Nubank is the proof, not Chime.",
+    "primaryMood": "bootstrapped-millions",
+    "moods": ["bootstrapped-millions", "underdog-wins"],
+    "stage": "empires",
+    "industry": "fintech",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-12T10:00:00Z",
+    "lat": -23.55,
+    "lng": -46.63,
+    "details": {
+      "metric": "Net Income"
+    }
+  },
+  {
+    "id": "yassir-series-b",
+    "type": "funding",
+    "title": "Yassir raises Series B from Algeria",
+    "headlineNumber": { "value": 150, "unit": "M", "format": "currency" },
+    "microBullets": [
+      "$150M Series B. First African super-app to cross 10M MAU",
+      "Ride-hail, food delivery, payments — all in one app, North Africa-first",
+      "Founder Noureddine Tayebi turned down Y Combinator twice"
+    ],
+    "whyNow": "Africa's first credible super-app crosses the line. North-African market unlocks $40B+.",
+    "primaryMood": "underdog-wins",
+    "moods": ["underdog-wins", "founders-like-me"],
+    "stage": "builders",
+    "industry": "consumer",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-08T11:00:00Z",
+    "lat": 30.04,
+    "lng": 31.24,
+    "details": {
+      "amountUsd": 150000000,
+      "round": "Series B",
+      "investors": ["BOND", "Y Combinator Continuity", "Endeavor Catalyst"],
+      "leadInvestor": "BOND"
+    }
+  },
+  {
+    "id": "uae-national-ai-strategy",
+    "type": "regulatory",
+    "title": "UAE passes National AI Sandbox Act",
+    "headlineNumber": null,
+    "microBullets": [
+      "First Gulf state to legalize regulated AI sandboxes for fintech + health",
+      "12-month exemptions on data residency for approved cohorts",
+      "G42 + Mubadala-backed firms get auto-approval"
+    ],
+    "whyNow": "UAE positioning Dubai as Gulf-region AI launchpad. Singapore-style regulatory arbitrage.",
+    "primaryMood": "quiet-builders",
+    "moods": ["quiet-builders", "big-money-moves"],
+    "stage": "empires",
+    "industry": "ai",
+    "region": "global",
+    "verified": true,
+    "source": "seed",
+    "createdAt": "2026-03-05T09:00:00Z",
+    "lat": 25.20,
+    "lng": 55.27,
+    "details": {
+      "jurisdiction": "United Arab Emirates",
+      "authority": "Dubai International Financial Centre",
+      "rulingDate": "2026-03-05"
+    }
+  }
+]

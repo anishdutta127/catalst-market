@@ -1,0 +1,17 @@
+[
+  {
+    "rank": 1,
+    "storyId": "phonepe-ipo-filing",
+    "curatorialNote": "Indian fintech is no longer a subsidy game. PhonePe filing for a $15B listing on NSE — not Nasdaq — is the moment the country's payments stack stops measuring itself against Stripe and starts setting its own comp."
+  },
+  {
+    "rank": 2,
+    "storyId": "cursor-series-c-2026",
+    "curatorialNote": "When Cursor closed at $9B post on $300M ARR, the conversation in dev tools stopped being about whether AI coding wins and became about who wins it. The IDE wars are over; the reformatting of every developer workflow downstream of the editor is the next two years of work."
+  },
+  {
+    "rank": 3,
+    "storyId": "zepto-series-f-2026",
+    "curatorialNote": "Quick commerce just stopped bleeding cash. Zepto closing a $500M Series F at a $5B post — profitable per order across 30 cities — is the proof the category survived the cohort that didn't. The thesis now is who builds the second tier-3 city in."
+  }
+]

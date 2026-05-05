@@ -1,0 +1,52 @@
+/*
+ * Catalst Market — CANDIDATE A token override (Mist & Volt)
+ *
+ * EXPLORATORY. Imported only by app/(internal)/primitives-cool-a/page.tsx.
+ * Source-of-truth: design-system/MASTER.cool-candidate-A.md.
+ *
+ * This file does NOT replace globals.css. It loads AFTER it (the demo route
+ * imports both) and re-binds the same custom-property names so the existing
+ * Tailwind utilities pick up the cool tokens without component changes.
+ */
+
+:root {
+  /* Base palette — Candidate A §2 */
+  --color-ink: #0A0E1A;
+  --color-pen: #3D4453;
+  --color-cta: #FF2D55;
+  --color-paper: #F1F4F9;
+  --color-card: #FFFFFF;
+  --color-text: #0E1320;
+  --color-rule: #DCE2EB;
+
+  /* Mood-lens tints — Candidate A §2 */
+  --mood-ember: #F0541F;
+  --mood-ember-ink: var(--color-ink);
+  --mood-moss: #2A8056;
+  --mood-moss-ink: #FFFFFF;
+  --mood-brass: #B8A052;
+  --mood-brass-ink: var(--color-ink);
+  --mood-cobalt: #1F4FEC;
+  --mood-cobalt-ink: #FFFFFF;
+  --mood-slate-sage: #5B6776;
+  --mood-slate-sage-ink: #FFFFFF;
+  --mood-lemon: #EFD335;
+  --mood-lemon-ink: var(--color-ink);
+  --mood-rose-clay: #B85068;
+  --mood-rose-clay-ink: #FFFFFF;
+  --mood-olive-gold: #71712E;
+  --mood-olive-gold-ink: #FFFFFF;
+  --mood-saffron: #DA751B;
+  --mood-saffron-ink: var(--color-ink);
+}
+
+/* Glass tokens retuned to the cool paper. The .glass-* classes from
+ * globals.css consume static rgba()s, so we override them at this scope by
+ * re-declaring the rules. The @supports fallback in globals.css is inherited. */
+.glass-chrome {
+  background: rgba(241, 244, 249, 0.72);
+}
+.glass-floating {
+  background: rgba(241, 244, 249, 0.85);
+}
+/* glass-toast stays white-tinted, identical to MASTER. */

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "established",
+    "storyId": "phonepe-ipo-filing",
+    "label": "Established",
+    "companyName": "PhonePe",
+    "headline": "The public-market proof for Indian fintech",
+    "businessPattern": "Turn trusted payment rails into a wider merchant operating system.",
+    "whyThisWeek": "PhonePe filing for a $15B NSE listing makes Indian payments feel less like a subsidy war and more like infrastructure.",
+    "copyablePrompt": "Build a trust-first merchant tool for one offline category that already depends on payments but still runs the rest of the workflow manually."
+  },
+  {
+    "category": "startup",
+    "storyId": "zepto-series-f-2026",
+    "label": "Startup",
+    "companyName": "Zepto",
+    "headline": "Quick commerce becomes a real operating model",
+    "businessPattern": "Compress a recurring purchase into a high-frequency habit with local execution depth.",
+    "whyThisWeek": "Zepto reaching profitable per-order economics across 30 Indian cities turns speed from a stunt into a repeatable business pattern.",
+    "copyablePrompt": "Build a neighborhood-first service that wins by removing waiting time from one routine purchase."
+  },
+  {
+    "category": "frontier",
+    "storyId": "sarvam-ai-multilingual-launch",
+    "label": "Frontier",
+    "companyName": "Sarvam AI",
+    "headline": "Local-language AI creates the next app layer",
+    "businessPattern": "Use a domain-specific model gap to unlock products global platforms do not prioritize.",
+    "whyThisWeek": "Sarvam's open-weight Indian language model gives builders a self-hostable base for vernacular workflows.",
+    "copyablePrompt": "Build an AI workflow for one Indian-language user group whose current tools assume English."
+  }
+]
